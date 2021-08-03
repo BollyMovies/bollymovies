@@ -2,4 +2,7 @@
     <string name="app_name">BollyMovies</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_my_list">Minha lista</string>
+    <string name="menu_watched">Assistidos</string>
 </resources>

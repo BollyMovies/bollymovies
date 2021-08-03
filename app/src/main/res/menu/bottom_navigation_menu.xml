@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="@string/menu_home"/>
+    <item
+        android:id="@+id/moviesListFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_list"
+        android:title="@string/menu_my_list"/>
+    <item
+        android:id="@+id/watchedMoviesFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_watched"
+        android:title="@string/menu_watched"/>
+</menu>

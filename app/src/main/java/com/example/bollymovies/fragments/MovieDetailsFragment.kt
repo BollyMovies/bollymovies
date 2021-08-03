@@ -6,14 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.bollymovies.R
+import com.example.bollymovies.databinding.FragmentHomeBinding
+import com.example.bollymovies.databinding.FragmentMovieDetailsBinding
 
 class MovieDetailsFragment : Fragment() {
+
+    private var binding: FragmentMovieDetailsBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie_details, container, false)
+        binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
+        return binding?.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }
