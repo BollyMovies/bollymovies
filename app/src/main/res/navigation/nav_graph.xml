@@ -27,9 +27,9 @@
         tools:layout="@layout/fragment_movie_details" />
     <fragment
         android:id="@+id/moviesListFragment"
-        android:name="com.example.bollymovies.features.movieslist.view.MoviesListFragment"
+        android:name="com.example.bollymovies.features.mylist.view.MyListFragment"
         android:label="fragment_movies_list"
-        tools:layout="@layout/fragment_movies_list" />
+        tools:layout="@layout/fragment_my_list" />
     <fragment
         android:id="@+id/watchedMoviesFragment"
         android:name="com.example.bollymovies.features.watchedmovies.view.WatchedMoviesFragment"
