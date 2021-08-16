@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bollymovies.databinding.MainCardItemBinding
 import com.example.bollymovies.datamodels.Movie
 
-class MyListAdapter(
-    private val myList: List<Movie>
+class WatchedMoviesAdapter(
+    private val watchedMovies: List<Movie>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,10 +19,10 @@ class MyListAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder as ViewHolder
-        holder.bind(myList[position])
+        holder.bind(watchedMovies[position])
     }
 
-    override fun getItemCount() = myList.size
+    override fun getItemCount() = watchedMovies.size
 
     override fun getItemViewType(position: Int): Int {
         return VIEW_TYPE_DEFAULT
