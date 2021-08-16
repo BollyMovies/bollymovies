@@ -7,4 +7,6 @@
     <string name="menu_watched">Assistidos</string>
     <string name="watched_movies">Filmes assistidos</string>
     <string name="my_list">Minha Lista</string>
+    <string name="tv_my_account">Minha Conta</string>
+    <string name="btn_enter">Entrar</string>
 </resources>

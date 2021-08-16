@@ -2,14 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/lupa"
+        android:id="@+id/search"
         android:icon="@drawable/ic_baseline_search_24"
         android:title="lupa"
         app:showAsAction="always" />
     <item
-        android:title="TODO"
+        android:id="@+id/myAccount"
+        android:title="minha conta"
         android:icon="@drawable/ic_baseline_person_24"
         app:showAsAction="always"
+
         />
 
 </menu>
