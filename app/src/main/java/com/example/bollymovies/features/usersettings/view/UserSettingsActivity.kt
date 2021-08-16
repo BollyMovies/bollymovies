@@ -12,5 +12,8 @@ class UserSettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityUserSettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.backArrow.setOnClickListener {
+            finish()
+        }
     }
 }

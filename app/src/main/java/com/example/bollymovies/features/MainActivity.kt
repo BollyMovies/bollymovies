@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.replace
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.bollymovies.R
@@ -43,10 +41,11 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.search -> {
-                var myListFragment = MyListFragment()
-                val transaction = this.supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.nav_host_fragment, myListFragment)
-                transaction.commit()
+                //MODELO DE TRANSIÇÃO FRAGMENTS
+//                var myListFragment = MyListFragment()
+//                val transaction = this.supportFragmentManager.beginTransaction()
+//                transaction.replace(R.id.nav_host_fragment, myListFragment)
+//                transaction.commit()
 
                 true
             }
