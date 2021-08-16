@@ -3,7 +3,7 @@ package com.example.bollymovies.features.mylist.usecase
 import com.example.bollymovies.R
 import com.example.bollymovies.datamodels.Movie
 
-class FakeData {
+class MyListFakeData {
     fun getLocalData(): List<Movie> {
         val movie1 = Movie (
             titulo = "White Tiger",
@@ -18,7 +18,7 @@ class FakeData {
         )
 
         val movie3 = Movie (
-            titulo = "Dangal moleque maluco que isso",
+            titulo = "Dangal",
             capa = R.drawable.dangal,
             sinopse = "filme indiano",
         )
