@@ -8,7 +8,8 @@
         app:showAsAction="always" />
     <item
         android:title="TODO"
-        app:showAsAction="never"
+        android:icon="@drawable/ic_baseline_person_24"
+        app:showAsAction="always"
         />
 
 </menu>

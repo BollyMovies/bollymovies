@@ -18,7 +18,7 @@ class FakeData {
         )
 
         val movie3 = Movie (
-            titulo = "Dangal",
+            titulo = "Dangal moleque maluco que isso",
             capa = R.drawable.dangal,
             sinopse = "filme indiano",
         )
