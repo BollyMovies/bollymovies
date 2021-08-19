@@ -1,21 +1,19 @@
 package com.example.bollymovies.features.home.usecase
 
 import com.example.bollymovies.datamodels.Movie
-import com.example.bollymovies.features.home.repository.HomeFakeData
-import com.example.bollymovies.features.home.repository.HomeFakeData2
+import com.example.bollymovies.features.home.repository.HomeRepository
 
 
 class HomeUseCase {
-    private val homeFakeData = HomeFakeData()
-    private val homeFakeData2 = HomeFakeData2()
+    private val homeRepository = HomeRepository()
 
     fun buscarFilmes(): List<Movie> {
-        val lista = homeFakeData.getLocalData()
+        val lista = homeRepository.getFakeData1()
         return lista
     }
 
     fun buscarFilmes2(): List<Movie> {
-        val lista = homeFakeData2.getLocalData()
+        val lista = homeRepository.getFakeData2()
         return lista
     }
 
