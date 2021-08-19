@@ -15,7 +15,7 @@ class MyListViewModel: ViewModel() {
     private val mutableLiveData: MutableLiveData<List<Movie>> = MutableLiveData()
 
     fun buscarFilmes(): LiveData<List<Movie>> {
-        mutableLiveData.value = MyListUseCase().buscarFilmes()
+        mutableLiveData.value = myListUseCase.buscarFilmes()
         return mutableLiveData
     }
 }
