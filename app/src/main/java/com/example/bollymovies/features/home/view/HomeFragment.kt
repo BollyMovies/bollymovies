@@ -1,24 +1,24 @@
 package com.example.bollymovies.features.home.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.bollymovies.R
 import com.example.bollymovies.adapter.HomeAdapter
-import com.example.bollymovies.adapter.MyListAdapter
 import com.example.bollymovies.databinding.FragmentHomeBinding
 import com.example.bollymovies.datamodels.Movie
 import com.example.bollymovies.features.home.viewmodel.HomeViewModel
-import com.example.bollymovies.utils.GridSpacingItemDecoration
+import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
+import com.example.bollymovies.utils.onMovieClickListener
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), onMovieClickListener {
 
     private var binding: FragmentHomeBinding? = null
     private lateinit var viewModel: HomeViewModel
@@ -39,33 +39,29 @@ class HomeFragment : Fragment() {
         }
 
         fun setupLancamentosRecyclerView(lista: List<Movie>) {
-            val homeAdapter = HomeAdapter(lista)
+            val lancamentosAdapter = HomeAdapter(lista)
 
             binding?.vgCardsListLancamentos?.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = homeAdapter
-
+                adapter = lancamentosAdapter
             }
         }
 
         fun setupPopularRecyclerView(lista: List<Movie>) {
-            val homeAdapter = HomeAdapter(lista)
-
+            val popularAdapter = HomeAdapter(
+                lista
+            )
             binding?.vgCardsListPopular?.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = homeAdapter
-
+                adapter = popularAdapter
             }
         }
 
         fun setupSugestionRecyclerView(lista: List<Movie>) {
-            val homeAdapter = HomeAdapter(lista)
-
+            val sugestionAdapter = HomeAdapter(lista)
             binding?.vgCardsListSugestion?.apply {
-                layoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = homeAdapter
-
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                adapter = sugestionAdapter
             }
         }
 
@@ -86,15 +82,20 @@ class HomeFragment : Fragment() {
                 setupSugestionRecyclerView(movies)
             })
         }
-        carregarLancamentos()
-        carregarPopular()
+
         carregarSugestion()
+        carregarPopular()
+        carregarLancamentos()
 
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
         binding = null
+    }
+
+    override fun onClickListener(movie: Movie) {
+        val intent = Intent(context, MovieDetailsActivity::class.java)
+        startActivity(intent)
     }
 }
