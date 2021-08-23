@@ -1,10 +1,14 @@
 package com.example.bollymovies.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bollymovies.databinding.MainCardItemBinding
 import com.example.bollymovies.datamodels.Movie
+import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
 
 class WatchedMoviesAdapter(
     private val watchedMovies: List<Movie>
@@ -38,8 +42,16 @@ class WatchedMoviesAdapter(
             with(binding) {
                 tvMovieTitle.text = movie.titulo
                 ivMovieImage.setImageResource(movie.capa)
+                binding.vgMainCard.setOnClickListener {
+                    onClick(binding.vgMainCard)
+                }
             }
         }
+    }
+
+    fun onClick(v: View?) {
+        val intent = Intent(v?.context, MovieDetailsActivity::class.java)
+        v?.context?.let { ContextCompat.startActivity(it, intent, null) }
     }
 
     companion object {

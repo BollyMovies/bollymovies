@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,9 +47,7 @@ class HomeFragment : Fragment(), onMovieClickListener {
         }
 
         fun setupPopularRecyclerView(lista: List<Movie>) {
-            val popularAdapter = HomeAdapter(
-                lista
-            )
+            val popularAdapter = HomeAdapter(lista)
             binding?.vgCardsListPopular?.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = popularAdapter

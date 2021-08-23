@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bollymovies.databinding.MainCardItemBinding
-import com.example.bollymovies.datamodels.Movie
+import com.example.bollymovies.databinding.ItemStreamingBinding
+import com.example.bollymovies.datamodels.Streaming
 import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
 
-class MyListAdapter(
-    private val myList: List<Movie>
+class StreamingAdapter(
+    private val streamingList: List<Streaming>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = MainCardItemBinding
+        val binding = ItemStreamingBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
 
@@ -23,28 +23,24 @@ class MyListAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder as ViewHolder
-        holder.bind(myList[position])
+        holder.bind(streamingList[position])
     }
 
-    override fun getItemCount() = myList.size
+    override fun getItemCount() = streamingList.size
 
     override fun getItemViewType(position: Int): Int {
         return VIEW_TYPE_DEFAULT
     }
 
     inner class ViewHolder(
-        val binding: MainCardItemBinding
+        val binding: ItemStreamingBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            movie: Movie,
+            stream: Streaming,
         ) {
             with(binding) {
-                tvMovieTitle.text = movie.titulo
-                ivMovieImage.setImageResource(movie.capa)
-                binding.vgMainCard.setOnClickListener {
-                    onClick(binding.vgMainCard)
-                }
+                ivStreaming.setImageResource(stream.capa)
             }
         }
     }
