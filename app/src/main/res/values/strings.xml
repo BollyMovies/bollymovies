@@ -12,4 +12,13 @@
     <string name="streamings">Onde assistir</string>
     <string name="information_title">Sinopse</string>
     <string name="trailer_watch_btn_text">Assistir Trailer</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_password">Senha</string>
+    <string name="btn_register">Criar conta</string>
+    <string name="arrow_back">Voltar</string>
+    <string name="title_popular">Populares</string>
+    <string name="title_nowPlaying">Lançamentos</string>
+    <string name="title_sugestion">Sugestões</string>
+    <string name="tv_watched_movies">Assistidos</string>
+    <string name="tv_my_list">Minha lista</string>
 </resources>
