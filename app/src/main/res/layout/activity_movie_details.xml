@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".view.activity.FilmsAndSeriesActivity">
+
+
+        <ImageView
+            android:id="@+id/ivArrowBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+
+        <com.rishabhharit.roundedimageview.RoundedImageView
+            android:id="@+id/ivMovieImage"
+            android:layout_width="150dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:transitionName="sharedImgView"
+            app:cornerRadius="25dp"
+            app:layout_constraintStart_toStartOf="@id/ivArrowBack"
+            app:layout_constraintTop_toBottomOf="@id/ivArrowBack"
+            android:src="@drawable/lion" />
+
+        <TextView
+            android:id="@+id/tvMovieName"
+            android:layout_width="210sp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@id/ivMovieImage"
+            app:layout_constraintTop_toTopOf="@id/ivMovieImage"
+            android:text="Lion" />
+
+
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+            android:id="@+id/ratingBarFilmsSeries"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/white"
+            android:rating="3.5"
+            android:secondaryProgressTint="@color/white"
+            android:stepSize="0.5"
+            app:layout_constraintEnd_toEndOf="@id/tvMovieName"
+            app:layout_constraintTop_toBottomOf="@id/tvMovieName"
+            app:layout_constraintStart_toStartOf="@id/tvMovieName"
+            app:mrb_fillBackgroundStars="false"
+            app:mrb_progressTint="@android:color/holo_orange_light" />
+
+        <CheckBox
+            android:id="@+id/cbWatchedFilmsSeries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="48dp"
+            android:button="@null"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:drawableBottom="@drawable/checkbox_watched_selector"
+            android:drawableTint="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/cbMyList"
+            app:layout_constraintStart_toStartOf="@id/ratingBarFilmsSeries"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvWatchedMovies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Assistidos"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/cbWatchedFilmsSeries"
+            app:layout_constraintStart_toStartOf="@id/cbWatchedFilmsSeries"
+            app:layout_constraintTop_toBottomOf="@id/cbWatchedFilmsSeries" />
+
+        <CheckBox
+            android:id="@+id/cbMyList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:button="@null"
+            android:drawableBottom="@drawable/checkbox_favorite_selector"
+            android:drawableTint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cbWatchedFilmsSeries"
+            app:layout_constraintTop_toTopOf="@id/cbWatchedFilmsSeries" />
+
+        <TextView
+            android:id="@+id/tvMyList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Minha lista"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/cbMyList"
+            app:layout_constraintStart_toStartOf="@id/cbMyList"
+            app:layout_constraintTop_toBottomOf="@id/cbMyList" />
+
+
+        <TextView
+            android:id="@+id/tvStreaming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="@string/streamings"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/tvDescriptionText"
+            app:layout_constraintTop_toBottomOf="@id/tvDescriptionText" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/vgStreaming"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_text_to_title"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tvStreaming"
+            app:layout_constraintStart_toStartOf="@id/tvStreaming"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_streaming" />
+
+        <Button
+            android:id="@+id/btTrailerFilmsSeries"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:backgroundTint="@color/secondary"
+            android:text="@string/trailer_watch_btn_text"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            app:icon="@drawable/ic_baseline_play_circle_24"
+            app:layout_constraintStart_toStartOf="@id/tvMovieName"
+            app:layout_constraintEnd_toEndOf="@id/tvMovieName"
+            app:layout_constraintTop_toBottomOf="@id/tvDirector" />
+
+
+        <TextView
+            android:id="@+id/tvDescriptionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/information_title"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tvDescriptionText"
+            app:layout_constraintStart_toStartOf="@id/ivMovieImage"
+            app:layout_constraintTop_toBottomOf="@id/ivMovieImage" />
+
+        <TextView
+            android:id="@+id/tvDescriptionText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_text_to_title"
+            android:textColor="@color/white"
+            android:text="Aos cinco anos de idade, o indiano Saroo se perdeu do irmão numa estação de trem de Calcutá e enfrentou grandes desafios para sobreviver sozinho, até ser adotado por uma família australiana. Incapaz de superar o que aconteceu, aos 25 anos ele decide buscar uma forma de reencontrar sua família biológica."
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@id/ivMovieImage"
+            app:layout_constraintEnd_toEndOf="@id/btTrailerFilmsSeries"
+            app:layout_constraintTop_toBottomOf="@id/tvDescriptionTitle" />
+
+        <TextView
+            android:id="@+id/tvYear"
+            android:layout_marginEnd="5dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Ano de lançamento: 2016"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/tvMovieName"
+            app:layout_constraintTop_toBottomOf="@id/ratingBarFilmsSeries"
+            app:layout_constraintEnd_toEndOf="@id/tvMovieName"/>
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Duração: 2h 9min"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/tvYear"
+            app:layout_constraintTop_toBottomOf="@id/tvYear" />
+
+        <TextView
+            android:id="@+id/tvCast"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:maxLines="3"
+            android:text="Elenco: Dev Patel, Saroo Brierley, Nicole Kidman, Rooney Mara"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/tvYear"
+            app:layout_constraintEnd_toEndOf="@id/tvMovieName"
+            app:layout_constraintTop_toBottomOf="@id/tvTime" />
+
+        <TextView
+            android:id="@+id/tvDirector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Direção: Garth Davis"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/tvYear"
+            app:layout_constraintTop_toBottomOf="@id/tvCast" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+

@@ -2,4 +2,5 @@
 <resources>
     <dimen name="default_margin">16dp</dimen>
     <dimen name="tv_titles_size">25sp</dimen>
+    <dimen name="margin_text_to_title">5dp</dimen>
 </resources>

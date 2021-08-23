@@ -9,4 +9,7 @@
     <string name="my_list">Minha Lista</string>
     <string name="tv_my_account">Minha Conta</string>
     <string name="btn_enter">Entrar</string>
+    <string name="streamings">Onde assistir</string>
+    <string name="information_title">Sinopse</string>
+    <string name="trailer_watch_btn_text">Assistir Trailer</string>
 </resources>

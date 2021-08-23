@@ -10,6 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BollyMovies">
         <activity
+            android:name=".features.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".features.moviedetails.view.MovieDetailsActivity" />
+        <activity
             android:name=".features.usersettings.view.UserSettingsActivity"
             android:exported="true" />
         <activity android:name=".features.MainActivity">

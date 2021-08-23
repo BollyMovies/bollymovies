@@ -3,14 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/drawable/checkbox_favorite_selector.xml" value="0.22037037037037038" />
+        <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/drawable/checkbox_watched_selector.xml" value="0.22037037037037038" />
         <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/drawable/splash_bg.xml" value="0.23703703703703705" />
+        <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout-v23/activity_movie_deatils.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/activity_user_settings.xml" value="0.24818840579710144" />
-        <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/fragment_home.xml" value="0.12284701114488349" />
+        <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/activity_movie_deatils.xml" value="0.264" />
+        <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/activity_movie_details.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/activity_splash.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/activity_user_settings.xml" value="0.18067226890756302" />
+        <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/fragment_movie_details.xml" value="0.264" />
         <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/fragment_movies_list.xml" value="0.12284701114488349" />
         <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/fragment_my_list.xml" value="0.176" />
         <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/fragment_user_settings.xml" value="0.24818840579710144" />
         <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/fragment_watched_movies.xml" value="0.12284701114488349" />
+        <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/item_streaming.xml" value="0.22509057971014493" />
         <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/main_card_item.xml" value="0.24818840579710144" />
         <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/movies_list_card_item.xml" value="0.25226449275362317" />
         <entry key="..\:/Users/victo/Desktop/dev/BollyMovies/app/src/main/res/layout/my_list_card_item.xml" value="0.24818840579710144" />
