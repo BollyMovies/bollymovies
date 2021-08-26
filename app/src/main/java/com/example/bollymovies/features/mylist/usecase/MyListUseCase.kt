@@ -1,15 +1,13 @@
 package com.example.bollymovies.features.mylist.usecase
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.bollymovies.datamodels.Movie
-import com.example.bollymovies.features.mylist.repository.MyListFakeData
+import com.example.bollymovies.features.mylist.repository.MyListRepository
 
 class MyListUseCase {
-    val myListFakeData = MyListFakeData()
+    val myListRepository = MyListRepository()
 
 fun buscarFilmes(): List<Movie> {
-    val lista = myListFakeData.getLocalData()
+    val lista = myListRepository.getFakeData()
     return lista
 }
 }
