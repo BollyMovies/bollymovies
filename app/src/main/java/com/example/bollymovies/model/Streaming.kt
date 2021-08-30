@@ -1,4 +1,4 @@
-package com.example.bollymovies.datamodels
+package com.example.bollymovies.model
 
 data class Streaming(
     val capa: Int
