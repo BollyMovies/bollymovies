@@ -16,5 +16,4 @@ class HomeUseCase {
         val lista = homeRepository.getFakeData2()
         return lista
     }
-
 }
