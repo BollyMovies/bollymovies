@@ -7,6 +7,7 @@ import com.example.bollymovies.datamodels.Movie
 import com.example.bollymovies.features.home.usecase.HomeUseCase
 
 class HomeViewModel: ViewModel() {
+
     private val homeUseCase = HomeUseCase()
 
     private val mutableLiveDataPopular: MutableLiveData<List<Movie>> = MutableLiveData()
@@ -27,5 +28,4 @@ class HomeViewModel: ViewModel() {
         mutableLiveDataSugestion.value = homeUseCase.buscarFilmes()
         return mutableLiveDataSugestion
     }
-
 }

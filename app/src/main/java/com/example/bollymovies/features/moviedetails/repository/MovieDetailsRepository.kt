@@ -1,7 +1,7 @@
 package com.example.bollymovies.features.moviedetails.repository
 
 import com.example.bollymovies.R
-import com.example.bollymovies.datamodels.Streaming
+import com.example.bollymovies.model.Streaming
 
 class MovieDetailsRepository {
     fun getFakeData(): List<Streaming>{
