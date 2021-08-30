@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bollymovies.adapter.StreamingAdapter
 import com.example.bollymovies.databinding.ActivityMovieDetailsBinding
-import com.example.bollymovies.datamodels.Streaming
+import com.example.bollymovies.model.Streaming
 import com.example.bollymovies.features.moviedetails.viewmodel.MovieDetailsViewModel
 
 
