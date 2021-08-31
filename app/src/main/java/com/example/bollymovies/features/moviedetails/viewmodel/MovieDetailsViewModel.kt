@@ -3,16 +3,28 @@ package com.example.bollymovies.features.moviedetails.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.bollymovies.base.BaseViewModel
 import com.example.bollymovies.model.Streaming
 import com.example.bollymovies.features.moviedetails.usecase.MovieDetailsUseCase
+import com.example.bollymovies.model.Movie
+import kotlinx.coroutines.launch
 
-class MovieDetailsViewModel: ViewModel() {
-    private val movieDetailsUseCase = MovieDetailsUseCase()
+class MovieDetailsViewModel: BaseViewModel() {
+    private val movieDetailUseCase = MovieDetailsUseCase()
 
-    private val mutableLiveData: MutableLiveData<List<Streaming>> = MutableLiveData()
+    private val _onSuccessMovieById: MutableLiveData<Movie> = MutableLiveData()
+    val onSuccessMovieById: LiveData<Movie>
+        get() = _onSuccessMovieById
 
-    fun buscarStreamings(): LiveData<List<Streaming>> {
-        mutableLiveData.value = movieDetailsUseCase.buscarStreamings()
-        return mutableLiveData
+    fun getMovieById(movieId: Int?) {
+        viewModelScope.launch {
+            callApi(
+                suspend { movieDetailUseCase.getMovieById(movieId) },
+                onSuccess = {
+                    _onSuccessMovieById.postValue(it as? Movie)
+                }
+            )
+        }
     }
 }

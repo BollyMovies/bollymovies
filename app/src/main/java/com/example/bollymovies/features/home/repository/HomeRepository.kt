@@ -1,88 +1,33 @@
 package com.example.bollymovies.features.home.repository
 
-import com.example.bollymovies.R
-import com.example.bollymovies.datamodels.Movie
+import com.example.bollymovies.api.ApiService
+import com.example.bollymovies.base.BaseRepository
+import com.example.bollymovies.utils.ResponseApi
 
 
-class HomeRepository {
+class HomeRepository : BaseRepository() {
 
-    fun getFakeData1(): List<Movie> {
-        val movie1 = Movie (
-            titulo = "White Tiger",
-            capa = R.drawable.white_tiger,
-            sinopse = "filme indiano",
-        )
-
-        val movie2 = Movie (
-            titulo = "Lion",
-            capa = R.drawable.lion,
-            sinopse = "filme indiano",
-        )
-
-        val movie3 = Movie (
-            titulo = "Dangal",
-            capa = R.drawable.dangal,
-            sinopse = "filme indiano",
-        )
-
-        val movie4= Movie (
-            titulo = "Baaghi",
-            capa = R.drawable.baaghi,
-            sinopse = "filme indiano",
-        )
-
-        val movie5 = Movie (
-            titulo = "Bahubali",
-            capa = R.drawable.bahubali,
-            sinopse = "filme indiano",
-        )
-
-        val movie6 = Movie (
-            titulo = "Pad Man",
-            capa = R.drawable.pad_man,
-            sinopse = "filme indiano",
-        )
-
-        val myList = listOf(movie1, movie2, movie3, movie4, movie5, movie6)
-        return myList
+    suspend fun getNowPlayingMovies(page: Int): ResponseApi {
+        return safeApiCall {
+            ApiService.tmdbApi.getNowPlayingMovies(page)
+        }
     }
 
-    fun getFakeData2(): List<Movie> {
-        val movie1 = Movie(
-            titulo = "Bahubali",
-            capa = R.drawable.bahubali,
-            sinopse = "filme indiano",
-        )
-        val movie2 = Movie(
-            titulo = "Pad Man",
-            capa = R.drawable.pad_man,
-            sinopse = "filme indiano"
-        )
-        val movie3 = Movie(
-            titulo = "White Tiger",
-            capa = R.drawable.white_tiger,
-            sinopse = "filme indiano",
-        )
+    suspend fun getPopularMovies(page: Int): ResponseApi {
+        return safeApiCall {
+            ApiService.tmdbApi.getPopularMovies(page)
+        }
+    }
 
-        val movie4 = Movie(
-            titulo = "Lion",
-            capa = R.drawable.lion,
-            sinopse = "filme indiano",
-        )
+    suspend fun getTopRatedMovies(page: Int): ResponseApi {
+        return safeApiCall {
+            ApiService.tmdbApi.getTopRatedMovies(page)
+        }
+    }
 
-        val movie5 = Movie(
-            titulo = "Dangal",
-            capa = R.drawable.dangal,
-            sinopse = "filme indiano",
-        )
-
-        val movie6 = Movie(
-            titulo = "Baaghi",
-            capa = R.drawable.baaghi,
-            sinopse = "filme indiano",
-        )
-
-        val myList = listOf(movie1, movie2, movie3, movie4, movie5, movie6)
-        return myList
+    suspend fun getMovieById(id: Int): ResponseApi {
+        return safeApiCall {
+            ApiService.tmdbApi.getMovieById(id)
+        }
     }
 }

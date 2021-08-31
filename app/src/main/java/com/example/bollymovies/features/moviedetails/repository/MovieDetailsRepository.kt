@@ -1,18 +1,16 @@
 package com.example.bollymovies.features.moviedetails.repository
 
 import com.example.bollymovies.R
+import com.example.bollymovies.api.ApiService
+import com.example.bollymovies.base.BaseRepository
 import com.example.bollymovies.model.Streaming
+import com.example.bollymovies.utils.ResponseApi
 
-class MovieDetailsRepository {
-    fun getFakeData(): List<Streaming>{
-        var stream1 = Streaming(
-            R.drawable.ic_icons8_aplicativo_de_desktop_netflix
-        )
-        var stream2 = Streaming(
-            R.drawable.ic_icons8_netflix
-        )
-        var listaDeStreaming = listOf(stream1, stream2)
-        return listaDeStreaming
+class MovieDetailsRepository: BaseRepository() {
+
+    suspend fun getMovieById(movieId: Int?): ResponseApi {
+        return safeApiCall {
+            ApiService.tmdbApi.getMovieById(movieId)
+        }
     }
-
 }
