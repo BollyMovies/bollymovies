@@ -11,20 +11,12 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_movieDetailsFragment"
-            app:destination="@id/movieDetailsFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_watchedMoviesFragment"
             app:destination="@id/watchedMoviesFragment" />
         <action
             android:id="@+id/action_homeFragment_to_moviesListFragment"
             app:destination="@id/moviesListFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/movieDetailsFragment"
-        android:name="com.example.bollymovies.features.moviedetails.view.MovieDetailsFragment"
-        android:label="fragment_movie_details"
-        tools:layout="@layout/activity_movie_details" />
     <fragment
         android:id="@+id/moviesListFragment"
         android:name="com.example.bollymovies.features.mylist.view.MyListFragment"

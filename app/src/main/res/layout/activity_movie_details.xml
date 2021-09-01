@@ -48,7 +48,7 @@
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/ivMovieImage"
             app:layout_constraintTop_toTopOf="@id/ivMovieImage"
-            android:text="Lion" />
+            android:text="Lion 666" />
 
 
         <me.zhanghai.android.materialratingbar.MaterialRatingBar

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bollymovies.databinding.ItemStreamingBinding
-import com.example.bollymovies.datamodels.Streaming
+import com.example.bollymovies.model.Streaming
 import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
 
 class StreamingAdapter(
