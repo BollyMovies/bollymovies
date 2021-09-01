@@ -1,20 +1,19 @@
 package com.example.bollymovies.adapter
 
 
-import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bollymovies.databinding.MainCardItemBinding
-import com.example.bollymovies.datamodels.Movie
-import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
+import com.example.bollymovies.model.Result
+import com.bumptech.glide.Glide
+import com.example.bollymovies.R
 
 
 class HomeAdapter(
-    private val movies: List<Movie>,
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener {
+    private val onClickListener: (movie: Result?) -> Unit
+) : PagedListAdapter<Result, HomeAdapter.ViewHolder>(Result.DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = MainCardItemBinding
@@ -23,13 +22,11 @@ class HomeAdapter(
 
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        holder as ViewHolder
-        holder.bind(movies[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(getItem(position), onClickListener)
 
     }
 
-    override fun getItemCount() = movies.size
 
     override fun getItemViewType(position: Int): Int {
         return VIEW_TYPE_DEFAULT
@@ -40,23 +37,24 @@ class HomeAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            movie: Movie,
+            movie: Result?,
+            onClickListener: (movie: Result) -> Unit
         ) {
             with(binding) {
-                tvMovieTitle.text = movie.titulo
-                ivMovieImage.setImageResource(movie.capa)
-                binding.vgMainCard.setOnClickListener {
-                    onClick(binding.vgMainCard)
+                movie?.let {
+                    tvMovieTitle.text = movie.title
+                    binding.vgMainCard.setOnClickListener {
+                        onClickListener(movie)
+                    }
+                    Glide
+                        .with(itemView.context)
+                        .load(movie.poster_path)
+                        .placeholder(R.drawable.placeholder)
+                        .into(ivMovieImage)
                 }
-
             }
 
         }
-    }
-
-    override fun onClick(v: View?) {
-        val intent = Intent(v?.context, MovieDetailsActivity::class.java)
-        v?.context?.let { startActivity(it, intent, null) }
     }
 
     companion object {

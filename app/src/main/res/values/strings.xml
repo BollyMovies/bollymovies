@@ -23,5 +23,6 @@
     <string name="tv_my_list">Minha lista</string>
     <string name="error_default">Erro desconhecido, tente novamente.</string>
     <string name="info">+ Info</string>
+    <string name="title_top_rated">Maiores Notas</string>
 
 </resources>

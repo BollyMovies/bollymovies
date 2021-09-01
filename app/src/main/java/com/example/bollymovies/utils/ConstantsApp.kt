@@ -9,4 +9,10 @@ class ConstantsApp {
         const val QUERY_PARAM_LANGUAGE_VALUE = "pt-BR"
         const val QUERY_PARAM_REGION_LABEL = "92edcd8cc85974b5a895db188182a0af"
     }
+
+    object  Home {
+        const val KEY_INTENT_MOVIE_ID = "movieId"
+        const val PAGE_SIZE = 20
+        const val FIRST_PAGE = 1
+    }
 }
