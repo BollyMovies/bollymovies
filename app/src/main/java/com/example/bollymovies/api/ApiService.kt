@@ -5,6 +5,8 @@ import com.example.bollymovies.utils.ConstantsApp.Api.API_TOKEN
 import com.example.bollymovies.utils.ConstantsApp.Api.API_TOKEN_KEY
 import com.example.bollymovies.utils.ConstantsApp.Api.QUERY_PARAM_LANGUAGE_KEY
 import com.example.bollymovies.utils.ConstantsApp.Api.QUERY_PARAM_LANGUAGE_VALUE
+import com.example.bollymovies.utils.ConstantsApp.Api.QUERY_PARAM_REGION_LABEL
+import com.example.bollymovies.utils.ConstantsApp.Api.QUERY_PARAM_REGION_VALUE
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -39,6 +41,7 @@ object ApiService {
                 val url = chain.request().url.newBuilder()
                     .addQueryParameter(API_TOKEN_KEY, API_TOKEN)
                     .addQueryParameter(QUERY_PARAM_LANGUAGE_KEY, QUERY_PARAM_LANGUAGE_VALUE)
+                    .addQueryParameter(QUERY_PARAM_REGION_LABEL, QUERY_PARAM_REGION_VALUE)
                     .build()
                 val newRequest = chain.request().newBuilder().url(url).build()
                 chain.proceed(newRequest)

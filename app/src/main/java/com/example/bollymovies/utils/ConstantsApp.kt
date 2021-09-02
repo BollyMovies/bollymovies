@@ -7,7 +7,8 @@ class ConstantsApp {
         const val API_TOKEN = "92edcd8cc85974b5a895db188182a0af"
         const val QUERY_PARAM_LANGUAGE_KEY = "language"
         const val QUERY_PARAM_LANGUAGE_VALUE = "pt-BR"
-        const val QUERY_PARAM_REGION_LABEL = "92edcd8cc85974b5a895db188182a0af"
+        const val QUERY_PARAM_REGION_LABEL = "with_original_language"
+        const val QUERY_PARAM_REGION_VALUE = "hi"
     }
 
     object  Home {
