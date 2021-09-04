@@ -6,6 +6,7 @@ data class Movie(
     val belongs_to_collection: Any?,
     val budget: Int? = null,
     val genres: List<Genre>? = null,
+    val credits: MovieCredits? = null,
     val homepage: String? = null,
     val id: Int? = null,
     val imdb_id: String? = null,

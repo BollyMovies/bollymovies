@@ -10,7 +10,7 @@ import retrofit2.http.*
 
 interface TMDBApi {
 
-    @GET("movie/now_playing")
+    @GET("discover/movie")
     suspend fun getNowPlayingMovies(
         @Query("page") page: Int?
     ): Response<NowPlaying>

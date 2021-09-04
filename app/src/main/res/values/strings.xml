@@ -24,5 +24,7 @@
     <string name="error_default">Erro desconhecido, tente novamente.</string>
     <string name="info">+ Info</string>
     <string name="title_top_rated">Maiores Notas</string>
+    <string name="cast_not_found">Elenco: Não encontrado</string>
+    <string name="cast">Elenco:</string>
 
 </resources>

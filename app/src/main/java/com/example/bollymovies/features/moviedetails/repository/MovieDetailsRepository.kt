@@ -10,7 +10,7 @@ class MovieDetailsRepository: BaseRepository() {
 
     suspend fun getMovieById(movieId: Int?): ResponseApi {
         return safeApiCall {
-            ApiService.tmdbApi.getMovieById(movieId)
+            ApiService.tmdbApiWithCast.getMovieById(movieId)
         }
     }
 }

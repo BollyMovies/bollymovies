@@ -1,6 +1,5 @@
 package com.example.bollymovies.features.moviedetails.view
 
-
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.bollymovies.adapter.StreamingAdapter
 import com.example.bollymovies.databinding.ActivityMovieDetailsBinding
+import com.example.bollymovies.extensions.getFirst4Chars
 import com.example.bollymovies.model.Streaming
 import com.example.bollymovies.features.moviedetails.viewmodel.MovieDetailsViewModel
 import com.example.bollymovies.utils.Command
@@ -21,7 +21,6 @@ class MovieDetailsActivity : AppCompatActivity() {
     lateinit var binding: ActivityMovieDetailsBinding
     private lateinit var viewModel: MovieDetailsViewModel
     private var movieId: Int? = null
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,11 +50,13 @@ class MovieDetailsActivity : AppCompatActivity() {
 
                             tvMovieName.text = movie.title
                             tvDescriptionText.text = movie.overview
-                            tvYear.text = movie.release_date
+                            tvYear.text = movie.release_date.toString().getFirst4Chars()
                             tvTime.text = "${movie.runtime.toString()} min."
-                            movie.vote_average?.let{
-                                binding.ratingBarFilmsSeries.rating = (it/ 2.0f).toFloat()
+                            movie.vote_average?.let {
+                                binding.ratingBarFilmsSeries.rating = (it / 2.0f).toFloat()
                                 binding.ratingBarFilmsSeries.stepSize = 0.5f
+                                binding.tvCast.text =
+                                    movie.credits?.getCastName(context = this@MovieDetailsActivity)
                             }
 
 
@@ -65,7 +66,7 @@ class MovieDetailsActivity : AppCompatActivity() {
             })
 
             viewModel.command.observe(this, {
-                when(it) {
+                when (it) {
                     is Command.Loading -> {
 
                     }
