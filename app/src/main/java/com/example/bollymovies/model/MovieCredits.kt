@@ -9,11 +9,17 @@ data class MovieCredits(
     val id: Int
 ) {
     fun getCastName(context: Context): String {
-        val cast1 = cast?.elementAt(0)?.name
-        val cast2 = cast?.elementAt(1)?.name
-        val cast3 = cast?.elementAt(2)?.name
-        val castLabel: String = context.getString(R.string.cast)
+        return if (cast?.size != 0) {
+            val cast1 = cast?.elementAt(0)?.name
+            val cast2 = cast?.elementAt(1)?.name
+            val cast3 = cast?.elementAt(2)?.name
+            val castLabel: String = context.getString(R.string.cast)
 
-        return "$castLabel $cast1, $cast2, $cast3"
+            "$castLabel $cast1, $cast2, $cast3"
+        } else {
+            context.getString(R.string.cast_not_found)
+        }
+
     }
+
 }

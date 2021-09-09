@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.bollymovies.adapter.StreamingAdapter
@@ -54,7 +53,6 @@ class MovieDetailsActivity : AppCompatActivity() {
                             tvTime.text = "${movie.runtime.toString()} min."
                             movie.vote_average?.let {
                                 binding.ratingBarFilmsSeries.rating = (it / 2.0f).toFloat()
-                                binding.ratingBarFilmsSeries.stepSize = 0.5f
                                 binding.tvCast.text =
                                     movie.credits?.getCastName(context = this@MovieDetailsActivity)
                             }
