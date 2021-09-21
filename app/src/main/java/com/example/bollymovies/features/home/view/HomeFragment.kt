@@ -66,8 +66,9 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.let {
-            viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+            viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
             viewModel.command = command
+            viewModel.getGenres()
 
             setupRecyclerViews()
             loadNowPlaying()

@@ -23,6 +23,7 @@ class NowPlayingPageKeyedDataSource(
     ) {
         CoroutineScope(IO).launch {
             val movies: List<Result> = callNowPlayingMoviesApi(FIRST_PAGE)
+            homeUseCase.saveMoviesDb(movies)
             callback.onResult(movies, null, FIRST_PAGE + 1)
         }
     }
@@ -38,6 +39,7 @@ class NowPlayingPageKeyedDataSource(
     private fun loadData(page: Int, nextPage: Int, callback: LoadCallback<Int, Result>) {
         CoroutineScope(IO).launch {
             val movies: List<Result> = callNowPlayingMoviesApi(page)
+            homeUseCase.saveMoviesDb(movies)
             callback.onResult(movies, nextPage)
         }
     }
