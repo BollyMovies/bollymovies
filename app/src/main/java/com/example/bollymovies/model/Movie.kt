@@ -3,9 +3,7 @@ package com.example.bollymovies.model
 data class Movie(
     val adult: Boolean? = null,
     var backdrop_path: String? = null,
-    val belongs_to_collection: Any?,
     val budget: Int? = null,
-    val genres: List<Genre>? = null,
     val credits: MovieCredits? = null,
     val homepage: String? = null,
     val id: Int? = null,

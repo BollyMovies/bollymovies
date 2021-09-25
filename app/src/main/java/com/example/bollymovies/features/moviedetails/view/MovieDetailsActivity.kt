@@ -9,8 +9,10 @@ import com.bumptech.glide.Glide
 import com.example.bollymovies.adapter.StreamingAdapter
 import com.example.bollymovies.databinding.ActivityMovieDetailsBinding
 import com.example.bollymovies.extensions.getFirst4Chars
+import com.example.bollymovies.extensions.toMovie
 import com.example.bollymovies.model.Streaming
 import com.example.bollymovies.features.moviedetails.viewmodel.MovieDetailsViewModel
+import com.example.bollymovies.model.Movie
 import com.example.bollymovies.utils.Command
 import com.example.bollymovies.utils.ConstantsApp.Home.KEY_INTENT_MOVIE_ID
 
@@ -35,32 +37,12 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         }
         fun setupObservables() {
-            viewModel.onSuccessMovieById.observe(this, { it ->
-                it?.let { movie ->
-                    with(binding) {
-//                        contentError.isVisible = false
-//                        contentLayout.isVisible = true
+            viewModel.onSuccessMovieById.observe(this, {
+                setupData(it)
+            })
 
-                        this@MovieDetailsActivity.let { activityNonNull ->
-                            Glide
-                                .with(activityNonNull)
-                                .load(movie.poster_path)
-                                .into(ivMovieDetailsImage)
-
-                            tvMovieName.text = movie.title
-                            tvDescriptionText.text = movie.overview
-                            tvYear.text = movie.release_date.toString().getFirst4Chars()
-                            tvTime.text = "${movie.runtime.toString()} min."
-                            movie.vote_average?.let {
-                                binding.ratingBarFilmsSeries.rating = (it / 2.0f).toFloat()
-                                binding.tvCast.text =
-                                    movie.credits?.getCastName(context = this@MovieDetailsActivity)
-                            }
-
-
-                        }
-                    }
-                }
+            viewModel.onSucessMovieByIdeFromDb.observe(this, {
+                setupData(it.toMovie())
             })
 
             viewModel.command.observe(this, {
@@ -69,8 +51,7 @@ class MovieDetailsActivity : AppCompatActivity() {
 
                     }
                     is Command.Error -> {
-//                        binding?.contentLayout?.isVisible = false
-//                        binding?.contentError?.isVisible = true
+                        viewModel.getMovieByIdFromDb(movieId!!)
                     }
                 }
             })
@@ -92,9 +73,36 @@ class MovieDetailsActivity : AppCompatActivity() {
                 adapter = streamingAdapter
             }
         }
-
     }
 
+    fun setupData(movie: Movie) {
+        with(binding) {
+            this@MovieDetailsActivity.let { activityNonNull ->
+                Glide
+                    .with(activityNonNull)
+                    .load(movie.poster_path)
+                    .into(ivMovieDetailsImage)
+
+                tvMovieName.text = movie.title
+                tvDescriptionText.text = movie.overview
+                tvYear.text = movie.release_date.toString().getFirst4Chars()
+                tvTime.text = textIsNotNull(movie.runtime.toString())
+                movie.vote_average?.let {
+                    binding.ratingBarFilmsSeries.rating = (it / 2.0f).toFloat()
+                    binding.tvCast.text =
+                        movie.credits?.getCastName(context = this@MovieDetailsActivity)
+                }
+            }
+        }
+    }
+
+    fun textIsNotNull(text: String): String {
+        if (text != "null") {
+            return "$text min."
+        } else {
+            return " "
+        }
+    }
 
     var command: MutableLiveData<Command> = MutableLiveData()
 

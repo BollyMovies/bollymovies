@@ -1,6 +1,8 @@
 package com.example.bollymovies.features.home.paging
 
+import android.app.Application
 import androidx.paging.PageKeyedDataSource
+import com.example.bollymovies.database.BollyMoviesDataBase
 import com.example.bollymovies.features.home.repository.HomeRepository
 import com.example.bollymovies.features.home.usecase.HomeUseCase
 import com.example.bollymovies.model.Popular
@@ -13,7 +15,8 @@ import kotlinx.coroutines.launch
 
 class PopularPageKeyedDataSource(
     private val homeRepository: HomeRepository,
-    private val homeUseCase: HomeUseCase
+    private val homeUseCase: HomeUseCase,
+    var application: Application
 ) : PageKeyedDataSource<Int, Result>() {
 
     override fun loadInitial(
@@ -22,7 +25,7 @@ class PopularPageKeyedDataSource(
     ) {
         CoroutineScope(Dispatchers.IO).launch {
             val movies: List<Result> = callPopularMoviesApi(ConstantsApp.Home.FIRST_PAGE)
-            homeUseCase.saveMoviesDb(movies)
+            homeUseCase.savePopularDb(movies)
             callback.onResult(movies, null, ConstantsApp.Home.FIRST_PAGE + 1)
         }
     }
@@ -38,7 +41,7 @@ class PopularPageKeyedDataSource(
     private fun loadData(page: Int, nextPage: Int, callback: LoadCallback<Int, Result>) {
         CoroutineScope(Dispatchers.IO).launch {
             val movies: List<Result> = callPopularMoviesApi(page)
-            homeUseCase.saveMoviesDb(movies)
+            homeUseCase.savePopularDb(movies)
             callback.onResult(movies, nextPage)
         }
     }
@@ -52,9 +55,15 @@ class PopularPageKeyedDataSource(
                 homeUseCase.setupPopularMoviesList(list)
             }
             is ResponseApi.Error -> {
-                listOf()
+                var bollyMoviesDb = BollyMoviesDataBase
+                    .getDatabase(application)
+                    .moviesHomeDao()
+                    .getPopular()
+
+                return bollyMoviesDb.map {
+                    it
+                }
+            }
             }
         }
     }
-
-}

@@ -1,6 +1,8 @@
 package com.example.bollymovies.features.home.paging
 
+import android.app.Application
 import androidx.paging.PageKeyedDataSource
+import com.example.bollymovies.database.BollyMoviesDataBase
 import com.example.bollymovies.features.home.repository.HomeRepository
 import com.example.bollymovies.features.home.usecase.HomeUseCase
 import com.example.bollymovies.model.Result
@@ -13,7 +15,8 @@ import kotlinx.coroutines.launch
 
 class TopRatedPageKeyedDataSource(
     private val homeRepository: HomeRepository,
-    private val homeUseCase: HomeUseCase
+    private val homeUseCase: HomeUseCase,
+    var application: Application
 ) : PageKeyedDataSource<Int, Result>() {
 
     override fun loadInitial(
@@ -22,7 +25,7 @@ class TopRatedPageKeyedDataSource(
     ) {
         CoroutineScope(Dispatchers.IO).launch {
             val movies: List<Result> = callTopRatedMoviesApi(ConstantsApp.Home.FIRST_PAGE)
-            homeUseCase.saveMoviesDb(movies)
+            homeUseCase.saveTopRatedDb(movies)
             callback.onResult(movies, null, ConstantsApp.Home.FIRST_PAGE + 1)
         }
     }
@@ -38,7 +41,7 @@ class TopRatedPageKeyedDataSource(
     private fun loadData(page: Int, nextPage: Int, callback: LoadCallback<Int, Result>) {
         CoroutineScope(Dispatchers.IO).launch {
             val movies: List<Result> = callTopRatedMoviesApi(page)
-            homeUseCase.saveMoviesDb(movies)
+            homeUseCase.saveTopRatedDb(movies)
             callback.onResult(movies, nextPage)
         }
     }
@@ -52,7 +55,14 @@ class TopRatedPageKeyedDataSource(
                 homeUseCase.setupTopRatedMoviesList(list)
             }
             is ResponseApi.Error -> {
-                listOf()
+                var bollyMoviesDb = BollyMoviesDataBase
+                    .getDatabase(application)
+                    .moviesHomeDao()
+                    .getTopRated()
+
+                return bollyMoviesDb.map {
+                    it
+                }
             }
         }
     }

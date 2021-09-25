@@ -20,6 +20,7 @@ class HomeUseCase(
         return list?.results?.map {
             it.backdrop_path = it.backdrop_path?.getFullImageUrl()
             it.poster_path = it.poster_path?.getFullImageUrl()
+            it.type = 2
             it
         } ?: listOf()
     }
@@ -28,6 +29,7 @@ class HomeUseCase(
         return list?.results?.map {
             it.backdrop_path = it.backdrop_path?.getFullImageUrl()
             it.poster_path = it.poster_path?.getFullImageUrl()
+            it.type = 1
             it
         } ?: listOf()
     }
@@ -36,25 +38,21 @@ class HomeUseCase(
         return list?.results?.map {
             it.backdrop_path = it.backdrop_path?.getFullImageUrl()
             it.poster_path = it.poster_path?.getFullImageUrl()
+            it.type = 3
             it
         } ?: listOf()
     }
 
-    suspend fun getGenres(): ResponseApi {
-        return when(val response = homeRepository.getGenres()) {
-            is ResponseApi.Success -> {
-                val genreInfo = response.data as? GenreInfo
-                homeRepository.saveGenresDatabase(genreInfo?.genres)
-                response
-            }
-            is ResponseApi.Error -> {
-                response
-            }
-        }
 
+    suspend fun saveNowPlayingDb(movies: List<Result>) {
+        homeRepository.saveNowPlayingDb(movies)
     }
 
-    suspend fun saveMoviesDb(movies: List<Result>) {
-        homeRepository.saveMoviesDb(movies)
+    suspend fun savePopularDb(movies: List<Result>) {
+        homeRepository.savePopularDb(movies)
+    }
+
+    suspend fun saveTopRatedDb(movies: List<Result>) {
+        homeRepository.saveTopRatedDb(movies)
     }
 }

@@ -68,7 +68,6 @@ class HomeFragment : BaseFragment() {
         activity?.let {
             viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
             viewModel.command = command
-            viewModel.getGenres()
 
             setupRecyclerViews()
             loadNowPlaying()
@@ -97,78 +96,18 @@ class HomeFragment : BaseFragment() {
         viewModel.nowPlayingPagedList?.observe(viewLifecycleOwner, { pagedList ->
             nowPlayingAdapter.submitList(pagedList)
         })
-
-        viewModel.command.observe(viewLifecycleOwner, {
-            when (it) {
-                is Command.Loading -> {
-
-                }
-                is Command.Error -> {
-                    binding?.let{ bindingNonNull ->
-                        Snackbar.make(
-                            bindingNonNull.vgCardsListLancamentos,
-                            getString(it.error),
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-
-                    }
-
-                }
-            }
-        })
-
     }
 
     private fun loadPopular() {
         viewModel.popularPagedList?.observe(viewLifecycleOwner, { pagedList ->
             popularAdapter.submitList(pagedList)
         })
-
-        viewModel.command.observe(viewLifecycleOwner, {
-            when (it) {
-                is Command.Loading -> {
-
-                }
-                is Command.Error -> {
-                    binding?.let{ bindingNonNull ->
-                        Snackbar.make(
-                            bindingNonNull.vgCardsListPopular,
-                            getString(it.error),
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-
-                    }
-
-                }
-            }
-        })
-
     }
 
     private fun loadTopRated() {
         viewModel.topRatedPagedList?.observe(viewLifecycleOwner, { pagedList ->
             topRatedAdapter.submitList(pagedList)
         })
-
-        viewModel.command.observe(viewLifecycleOwner, {
-            when (it) {
-                is Command.Loading -> {
-
-                }
-                is Command.Error -> {
-                    binding?.let{ bindingNonNull ->
-                        Snackbar.make(
-                            bindingNonNull.vgCardsListTopRated,
-                            getString(it.error),
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-
-                    }
-
-                }
-            }
-        })
-
     }
 
     override fun onDestroy() {

@@ -25,20 +25,19 @@ class HomeViewModel(
     private var watchMoviesLiveDataSource: LiveData<PageKeyedDataSource<Int, Result>>? = null
     private val homeUseCase = HomeUseCase(getApplication())
     private val homeRepository = HomeRepository(getApplication<Application>())
-    private val _onGenresLoaded: MutableLiveData<Boolean> =  MutableLiveData()
-    val onGenresLoaded: LiveData<Boolean>
-        get() = _onGenresLoaded
+
 
     init {
-        nowPlayingData()
-        popularData()
-        topRatedData()
+        nowPlayingData(application)
+        popularData(application)
+        topRatedData(application)
     }
 
-    fun nowPlayingData(){
+    fun nowPlayingData(application: Application){
         val nowPlayingPageKeyedDataSource = NowPlayingPageKeyedDataSource(
             homeUseCase = homeUseCase,
-            homeRepository = homeRepository
+            homeRepository = homeRepository,
+            application = application
         )
         val nowPlayingDataSourceFactory = NowPlayingDataSourceFactory(nowPlayingPageKeyedDataSource)
         val pagedListConfig = PagedList.Config.Builder()
@@ -50,10 +49,11 @@ class HomeViewModel(
             .build()
     }
 
-    fun popularData(){
+    fun popularData(application: Application){
         val popularPageKeyedDataSource = PopularPageKeyedDataSource(
             homeUseCase = homeUseCase,
-            homeRepository = homeRepository
+            homeRepository = homeRepository,
+            application = application
         )
         val popularDataSourceFactory = PopularDataSourceFactory(popularPageKeyedDataSource)
         val pagedListConfig = PagedList.Config.Builder()
@@ -65,10 +65,11 @@ class HomeViewModel(
             .build()
     }
 
-    fun topRatedData(){
+    fun topRatedData(application: Application){
         val topRatedPageKeyedDataSource = TopRatedPageKeyedDataSource(
             homeUseCase = homeUseCase,
-            homeRepository = homeRepository
+            homeRepository = homeRepository,
+            application = application
         )
         val topRatedDataSourceFactory = TopRatedDataSourceFactory(topRatedPageKeyedDataSource)
         val pagedListConfig = PagedList.Config.Builder()
@@ -86,17 +87,6 @@ class HomeViewModel(
                 suspend { homeUseCase.getMovieById(id) },
                 onSuccess = {
                     it
-                }
-            )
-        }
-    }
-
-    fun getGenres() {
-        viewModelScope.launch {
-            callApi(
-                suspend { homeUseCase.getGenres() },
-                onSuccess = {
-                    _onGenresLoaded.postValue(true)
                 }
             )
         }

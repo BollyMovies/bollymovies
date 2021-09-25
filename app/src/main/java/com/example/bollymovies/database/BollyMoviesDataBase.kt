@@ -4,14 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.bollymovies.modeldb.GenreDb
-import com.example.bollymovies.modeldb.MovieDb
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.bollymovies.model.Result
 
-object BollyMoviesDatabase {
-    @Database(entities = [MovieDb::class, GenreDb::class], version = 1)
+
+object BollyMoviesDataBase {
+
+    @Database(entities = [Result::class], version = 1, exportSchema = false)
     abstract class BollyMoviesRoomDatabase : RoomDatabase() {
-        abstract fun movieDao(): MovieDao
-        abstract fun genreDao(): GenreDao
+        abstract fun moviesHomeDao(): MoviesHomeDao
     }
 
     fun getDatabase(context: Context) : BollyMoviesRoomDatabase {

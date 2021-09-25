@@ -32,7 +32,4 @@ interface TMDBApi {
         @Body movie: Movie
     ): Response<ResponseBody>
 
-    @GET("genre/movie/list")
-    suspend fun getGenres(
-    ): Response<GenreInfo>
 }
