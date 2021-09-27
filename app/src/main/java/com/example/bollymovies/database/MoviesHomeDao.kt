@@ -2,7 +2,7 @@ package com.example.bollymovies.database
 
 import androidx.room.*
 import com.example.bollymovies.model.Result
-import com.example.bollymovies.modeldb.MovieDb
+
 
 @Dao
 interface MoviesHomeDao {
