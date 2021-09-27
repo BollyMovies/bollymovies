@@ -1,6 +1,9 @@
 package com.example.bollymovies.features.home.paging
 
+import android.app.Application
 import androidx.paging.PageKeyedDataSource
+import com.example.bollymovies.database.BollyMoviesDataBase
+import com.example.bollymovies.extensions.getFirst4Chars
 import com.example.bollymovies.features.home.repository.HomeRepository
 import com.example.bollymovies.features.home.usecase.HomeUseCase
 import com.example.bollymovies.model.NowPlaying
@@ -14,7 +17,8 @@ import com.example.bollymovies.utils.ResponseApi
 
 class NowPlayingPageKeyedDataSource(
     private val homeRepository: HomeRepository,
-    private val homeUseCase: HomeUseCase
+    private val homeUseCase: HomeUseCase,
+    val application: Application
 ) : PageKeyedDataSource<Int, Result>() {
 
     override fun loadInitial(
@@ -23,6 +27,7 @@ class NowPlayingPageKeyedDataSource(
     ) {
         CoroutineScope(IO).launch {
             val movies: List<Result> = callNowPlayingMoviesApi(FIRST_PAGE)
+            homeUseCase.saveNowPlayingDb(movies)
             callback.onResult(movies, null, FIRST_PAGE + 1)
         }
     }
@@ -38,6 +43,7 @@ class NowPlayingPageKeyedDataSource(
     private fun loadData(page: Int, nextPage: Int, callback: LoadCallback<Int, Result>) {
         CoroutineScope(IO).launch {
             val movies: List<Result> = callNowPlayingMoviesApi(page)
+            homeUseCase.saveNowPlayingDb(movies)
             callback.onResult(movies, nextPage)
         }
     }
@@ -48,10 +54,21 @@ class NowPlayingPageKeyedDataSource(
         ) {
             is ResponseApi.Success -> {
                 val list = response.data as? NowPlaying
-                homeUseCase.setupNowPlayingMoviesList(list)
+                homeUseCase.setupNowPlayingMoviesList(list).filter {
+                    !it.overview.equals("")
+                    !it.poster_path.isNullOrBlank()
+
+                }
             }
             is ResponseApi.Error -> {
-                listOf()
+                var bollyMoviesDb = BollyMoviesDataBase
+                    .getDatabase(application)
+                    .moviesHomeDao()
+                    .getNowPlaying()
+
+                return bollyMoviesDb.map {
+                    it
+                }
             }
         }
     }

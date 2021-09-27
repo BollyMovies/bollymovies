@@ -66,7 +66,7 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.let {
-            viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+            viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
             viewModel.command = command
 
             setupRecyclerViews()
@@ -96,78 +96,18 @@ class HomeFragment : BaseFragment() {
         viewModel.nowPlayingPagedList?.observe(viewLifecycleOwner, { pagedList ->
             nowPlayingAdapter.submitList(pagedList)
         })
-
-        viewModel.command.observe(viewLifecycleOwner, {
-            when (it) {
-                is Command.Loading -> {
-
-                }
-                is Command.Error -> {
-                    binding?.let{ bindingNonNull ->
-                        Snackbar.make(
-                            bindingNonNull.vgCardsListLancamentos,
-                            getString(it.error),
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-
-                    }
-
-                }
-            }
-        })
-
     }
 
     private fun loadPopular() {
         viewModel.popularPagedList?.observe(viewLifecycleOwner, { pagedList ->
             popularAdapter.submitList(pagedList)
         })
-
-        viewModel.command.observe(viewLifecycleOwner, {
-            when (it) {
-                is Command.Loading -> {
-
-                }
-                is Command.Error -> {
-                    binding?.let{ bindingNonNull ->
-                        Snackbar.make(
-                            bindingNonNull.vgCardsListPopular,
-                            getString(it.error),
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-
-                    }
-
-                }
-            }
-        })
-
     }
 
     private fun loadTopRated() {
         viewModel.topRatedPagedList?.observe(viewLifecycleOwner, { pagedList ->
             topRatedAdapter.submitList(pagedList)
         })
-
-        viewModel.command.observe(viewLifecycleOwner, {
-            when (it) {
-                is Command.Loading -> {
-
-                }
-                is Command.Error -> {
-                    binding?.let{ bindingNonNull ->
-                        Snackbar.make(
-                            bindingNonNull.vgCardsListTopRated,
-                            getString(it.error),
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-
-                    }
-
-                }
-            }
-        })
-
     }
 
     override fun onDestroy() {

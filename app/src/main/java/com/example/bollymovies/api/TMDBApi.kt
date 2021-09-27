@@ -1,16 +1,13 @@
 package com.example.bollymovies.api
 
-import com.example.bollymovies.model.Movie
-import com.example.bollymovies.model.NowPlaying
-import com.example.bollymovies.model.Popular
-import com.example.bollymovies.model.TopRated
+import com.example.bollymovies.model.*
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
 interface TMDBApi {
 
-    @GET("movie/now_playing")
+    @GET("discover/movie")
     suspend fun getNowPlayingMovies(
         @Query("page") page: Int?
     ): Response<NowPlaying>
@@ -34,4 +31,5 @@ interface TMDBApi {
     suspend fun saveMovie(
         @Body movie: Movie
     ): Response<ResponseBody>
+
 }

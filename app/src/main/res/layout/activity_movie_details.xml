@@ -48,7 +48,7 @@
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/ivMovieDetailsImage"
             app:layout_constraintTop_toTopOf="@id/ivMovieDetailsImage"
-            android:text="Não encontrado" />
+            tools:text="Não encontrado" />
 
 
         <me.zhanghai.android.materialratingbar.MaterialRatingBar
@@ -174,7 +174,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_text_to_title"
             android:textColor="@color/white"
-            android:text="Aos cinco anos de idade, o indiano Saroo se perdeu do irmão numa estação de trem de Calcutá e enfrentou grandes desafios para sobreviver sozinho, até ser adotado por uma família australiana. Incapaz de superar o que aconteceu, aos 25 anos ele decide buscar uma forma de reencontrar sua família biológica."
+            tools:text="Aos cinco anos de idade, o indiano Saroo se perdeu do irmão numa estação de trem de Calcutá e enfrentou grandes desafios para sobreviver sozinho, até ser adotado por uma família australiana. Incapaz de superar o que aconteceu, aos 25 anos ele decide buscar uma forma de reencontrar sua família biológica."
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@id/ivMovieDetailsImage"
             app:layout_constraintEnd_toEndOf="@id/btTrailerFilmsSeries"
@@ -186,7 +186,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Não encontrado"
+            tools:text="Não encontrado"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tvMovieName"
             app:layout_constraintTop_toBottomOf="@id/ratingBarFilmsSeries"
@@ -196,7 +196,7 @@
             android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Não encontrado"
+            tools:text="Não encontrado"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tvYear"
             app:layout_constraintTop_toBottomOf="@id/tvYear" />
@@ -208,7 +208,7 @@
             android:layout_marginEnd="@dimen/default_margin"
             android:maxLines="3"
             android:minLines="1"
-            android:text="Elenco: Não encontrado"
+            android:text="@string/cast_not_found"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tvYear"
             app:layout_constraintEnd_toEndOf="@id/tvMovieName"
@@ -220,7 +220,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Direção: Não encontrado"
+            tools:text="Direção: Não encontrado"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tvYear"
             app:layout_constraintTop_toBottomOf="@id/tvCast" />
