@@ -20,4 +20,9 @@ class ConstantsApp {
         const val PAGE_SIZE = 20
         const val FIRST_PAGE = 1
     }
+
+    object Login {
+        lateinit var UserID: String
+        var LOGIN_TYPE = 0
+    }
 }
