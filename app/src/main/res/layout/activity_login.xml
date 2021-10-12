@@ -44,6 +44,7 @@
             app:startIconDrawable="@drawable/ic_baseline_person_24">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tf_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -74,7 +75,7 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/campo_senha"
+                android:id="@+id/tf_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"

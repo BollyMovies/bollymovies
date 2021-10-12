@@ -8,11 +8,14 @@ import android.widget.Toast
 import com.example.bollymovies.R
 import com.example.bollymovies.databinding.ActivityLoginBinding
 import com.example.bollymovies.features.MainActivity
+import com.example.bollymovies.utils.ConstantsApp.Login.LOGIN_TYPE
+import com.example.bollymovies.utils.ConstantsApp.Login.UserID
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -24,14 +27,14 @@ class LoginActivity : AppCompatActivity() {
 
     companion object {
         private const val RC_SIGN_IN = 1
-        const val TAG ="EmailPassword"
+        const val TAG = "EmailPassword"
     }
 
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
         if (currentUser != null) {
-          goToHome()
+            goToHome()
         }
     }
 
@@ -55,6 +58,21 @@ class LoginActivity : AppCompatActivity() {
 
         binding.tvRegister.setOnClickListener {
             goToRegister()
+        }
+
+        binding.btnEnter.setOnClickListener {
+            val email = binding.tfLoginEmail.text.toString()
+            val password = binding.tfLoginPassword.text.toString()
+
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(
+                    this,
+                    "Preencha todos os campos",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                signInFirebase(email, password)
+            }
         }
     }
 
@@ -92,7 +110,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-
     private fun goToHome() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
@@ -110,4 +127,39 @@ class LoginActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-}
+    private fun signInFirebase(mail: String, pass: String) {
+        auth.signInWithEmailAndPassword(mail, pass)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserWithEmail:success")
+                    val user = auth.currentUser
+                    UserID = user?.uid.toString()
+                    LOGIN_TYPE = 10
+                    updateUI(user, mail)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        baseContext, "Login ou senha inválidos",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+    }
+
+    private fun updateUI(currentUser: FirebaseUser?, emailAdd: String) {
+        if (currentUser != null) {
+//            if(currentUser.isEmailVerified) {
+                goToHome()
+            }
+            else {
+                Toast.makeText(
+                    baseContext, "E-mail não verificado",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        }
+    }
+
