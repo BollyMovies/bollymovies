@@ -53,8 +53,8 @@ class LoginActivity : AppCompatActivity() {
             signIn()
         }
 
-        binding.backArrow.setOnClickListener {
-            finish()
+        binding.tvRegister.setOnClickListener {
+            goToRegister()
         }
     }
 
@@ -98,6 +98,12 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    private fun goToRegister() {
+        val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
+    }
+
 
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent

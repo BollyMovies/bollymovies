@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.bollymovies.R
 import com.example.bollymovies.databinding.ActivityMainBinding
 import com.example.bollymovies.features.login.view.LoginActivity
+import com.example.bollymovies.features.usersettings.UserSettingsActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =  when (item.itemId) {
             R.id.myAccount -> {
-                val intent = Intent(this, LoginActivity::class.java)
+                val intent = Intent(this, UserSettingsActivity::class.java)
                 startActivity(intent)
                 true
             }

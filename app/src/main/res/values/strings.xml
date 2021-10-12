@@ -26,5 +26,8 @@
     <string name="title_top_rated">Maiores Notas</string>
     <string name="cast_not_found">Elenco: Não encontrado</string>
     <string name="cast">Elenco:</string>
+    <string name="name">Nome</string>
+    <string name="forgot_password"><u>Esqueci minha senha</u></string>
+    <string name="create_account">Ainda não possui uma conta? <u>Criar agora!</u></string>
 
 </resources>
