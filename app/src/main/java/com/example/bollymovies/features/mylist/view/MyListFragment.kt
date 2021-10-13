@@ -1,5 +1,6 @@
 package com.example.bollymovies.features.mylist.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,12 +12,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.bollymovies.adapter.HomeAdapter
 import com.example.bollymovies.adapter.MyListAdapter
 import com.example.bollymovies.database.MoviesList
 import com.example.bollymovies.databinding.FragmentMyListBinding
 import com.example.bollymovies.datamodels.Movie
+import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
 import com.example.bollymovies.features.mylist.viewmodel.MyListViewModel
 import com.example.bollymovies.utils.Command
+import com.example.bollymovies.utils.ConstantsApp
 import com.example.bollymovies.utils.GridSpacingItemDecoration
 
 

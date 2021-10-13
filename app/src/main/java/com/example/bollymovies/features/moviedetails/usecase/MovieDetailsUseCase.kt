@@ -34,4 +34,7 @@ class MovieDetailsUseCase(
     suspend fun saveMyListMovie(movie: MoviesList) =
         movieDetailsRepository.saveMyListMovieDb(movie)
 
+    suspend fun deleteMyListMovieDb(movie: MoviesList) =
+        movieDetailsRepository.deleteMyListMovieDb(movie)
+
 }

@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.bollymovies.database.MoviesList
 import com.example.bollymovies.databinding.MainCardItemBinding
 import com.example.bollymovies.datamodels.Movie
 import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
+import com.example.bollymovies.utils.ConstantsApp
 
 class MyListAdapter(
     private val myList: List<MoviesList>
@@ -48,15 +50,16 @@ class MyListAdapter(
                     .load(movie.posterPath)
                     .into(ivMovieImage)
                 binding.vgMainCard.setOnClickListener {
-                    onClick(binding.vgMainCard)
+                    onClick(binding.vgMainCard, movie)
                 }
             }
         }
     }
 
-    fun onClick(v: View?) {
+    fun onClick(v: View?, movie: MoviesList) {
         val intent = Intent(v?.context, MovieDetailsActivity::class.java)
-        v?.context?.let { ContextCompat.startActivity(it, intent, null) }
+        intent.putExtra(ConstantsApp.Home.KEY_INTENT_MOVIE_ID, movie.movieId ?: -1)
+        v?.context?.let {startActivity(it, intent, null)}
     }
 
     companion object {

@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bollymovies.base.BaseViewModel
 import com.example.bollymovies.database.MoviesList
-import com.example.bollymovies.model.Streaming
 import com.example.bollymovies.features.moviedetails.usecase.MovieDetailsUseCase
+import com.example.bollymovies.model.Streaming
 import com.example.bollymovies.model.Movie
 import com.example.bollymovies.model.Result
 import kotlinx.coroutines.launch
@@ -48,6 +48,12 @@ class MovieDetailsViewModel(
     fun saveMyListMovieDb(movie: MoviesList) {
         viewModelScope.launch {
             movieDetailUseCase.saveMyListMovie(movie)
+        }
+    }
+
+    fun deleteMyListMovieDb(movie: MoviesList) {
+        viewModelScope.launch {
+            movieDetailUseCase.deleteMyListMovieDb(movie)
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.bollymovies.features.moviedetails.view
 
 import android.os.Bundle
+import android.widget.CheckBox
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -47,17 +48,12 @@ class MovieDetailsActivity : AppCompatActivity() {
                 val title = it.title
                 val movie = MoviesList(id, title, poster)
 
-                binding.cbMyList.setOnCheckedChangeListener {_, isChecked ->
-                    if (isChecked) {
+                binding.cbMyList.setOnClickListener {
+                    if (binding.cbMyList.isChecked) {
                         viewModel.saveMyListMovieDb(movie)
                     } else {
-                       println("remove")
+                        viewModel.deleteMyListMovieDb(movie)
                     }
-
-                }
-
-                binding.cbMyList.setOnClickListener {
-                    viewModel.saveMyListMovieDb(movie)
                 }
             })
 
