@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.bollymovies.database.MoviesList
 import com.example.bollymovies.databinding.MainCardItemBinding
 import com.example.bollymovies.datamodels.Movie
 import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
 
 class MyListAdapter(
-    private val myList: List<Movie>
+    private val myList: List<MoviesList>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,11 +39,14 @@ class MyListAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            movie: Movie,
+            movie: MoviesList,
         ) {
             with(binding) {
-                tvMovieTitle.text = movie.titulo
-                ivMovieImage.setImageResource(movie.capa)
+                tvMovieTitle.text = movie.title
+                Glide
+                    .with(itemView.context)
+                    .load(movie.posterPath)
+                    .into(ivMovieImage)
                 binding.vgMainCard.setOnClickListener {
                     onClick(binding.vgMainCard)
                 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bollymovies.base.BaseViewModel
+import com.example.bollymovies.database.MoviesList
 import com.example.bollymovies.model.Streaming
 import com.example.bollymovies.features.moviedetails.usecase.MovieDetailsUseCase
 import com.example.bollymovies.model.Movie
@@ -41,6 +42,12 @@ class MovieDetailsViewModel(
             val movieFromDb = movieDetailUseCase.getMovieByIdFromDb(movieId)
             _onSuccessMovieByIdFromDb.postValue(movieFromDb)
 
+        }
+    }
+
+    fun saveMyListMovieDb(movie: MoviesList) {
+        viewModelScope.launch {
+            movieDetailUseCase.saveMyListMovie(movie)
         }
     }
 }

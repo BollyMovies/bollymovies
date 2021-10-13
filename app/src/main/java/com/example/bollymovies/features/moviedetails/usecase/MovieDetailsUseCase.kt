@@ -1,6 +1,7 @@
 package com.example.bollymovies.features.moviedetails.usecase
 
 import android.app.Application
+import com.example.bollymovies.database.MoviesList
 import com.example.bollymovies.extensions.getFullImageUrl
 import com.example.bollymovies.model.Streaming
 import com.example.bollymovies.features.moviedetails.repository.MovieDetailsRepository
@@ -29,5 +30,8 @@ class MovieDetailsUseCase(
 
     suspend fun getMovieByIdFromDb(movieId: Int) =
         movieDetailsRepository.getMovieByIdFromDb(movieId)
+
+    suspend fun saveMyListMovie(movie: MoviesList) =
+        movieDetailsRepository.saveMyListMovieDb(movie)
 
 }

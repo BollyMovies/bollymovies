@@ -1,9 +1,13 @@
 package com.example.bollymovies.features.mylist.repository
 
+import android.app.Application
 import com.example.bollymovies.R
+import com.example.bollymovies.database.BollyMoviesDataBase
 import com.example.bollymovies.datamodels.Movie
 
-class MyListRepository {
+class MyListRepository(
+    private val application: Application
+) {
     fun getFakeData(): List<Movie> {
         val movie1 = Movie(
             titulo = "White Tiger",
@@ -44,4 +48,8 @@ class MyListRepository {
         val myList = listOf(movie1, movie2, movie3, movie4, movie5, movie6)
         return myList
     }
+
+    suspend fun getMyListMoviesDb() =
+        BollyMoviesDataBase.getDatabase(application)
+            .moviesListDao().getAllFavorites()
 }

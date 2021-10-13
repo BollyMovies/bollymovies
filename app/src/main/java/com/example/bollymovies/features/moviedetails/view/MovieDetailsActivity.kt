@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.bollymovies.adapter.StreamingAdapter
+import com.example.bollymovies.database.BollyMoviesDataBase
+import com.example.bollymovies.database.MoviesList
 import com.example.bollymovies.databinding.ActivityMovieDetailsBinding
 import com.example.bollymovies.extensions.getFirst4Chars
 import com.example.bollymovies.extensions.toMovie
@@ -39,6 +41,24 @@ class MovieDetailsActivity : AppCompatActivity() {
         fun setupObservables() {
             viewModel.onSuccessMovieById.observe(this, {
                 setupData(it)
+
+                val id = it.id
+                val poster = it.poster_path
+                val title = it.title
+                val movie = MoviesList(id, title, poster)
+
+                binding.cbMyList.setOnCheckedChangeListener {_, isChecked ->
+                    if (isChecked) {
+                        viewModel.saveMyListMovieDb(movie)
+                    } else {
+                       println("remove")
+                    }
+
+                }
+
+                binding.cbMyList.setOnClickListener {
+                    viewModel.saveMyListMovieDb(movie)
+                }
             })
 
             viewModel.onSucessMovieByIdeFromDb.observe(this, {

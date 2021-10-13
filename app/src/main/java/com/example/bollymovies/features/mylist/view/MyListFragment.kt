@@ -6,32 +6,41 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bollymovies.adapter.MyListAdapter
+import com.example.bollymovies.database.MoviesList
 import com.example.bollymovies.databinding.FragmentMyListBinding
 import com.example.bollymovies.datamodels.Movie
 import com.example.bollymovies.features.mylist.viewmodel.MyListViewModel
+import com.example.bollymovies.utils.Command
 import com.example.bollymovies.utils.GridSpacingItemDecoration
 
 
 class MyListFragment : Fragment() {
 
     private var binding: FragmentMyListBinding? = null
-    private val viewModel: MyListViewModel by viewModels()
+    private lateinit var viewModel: MyListViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val observer = Observer<List<Movie>>{
-                myList -> setupRecyclerView(myList)
+        viewModel = ViewModelProvider(this)[MyListViewModel::class.java]
+        viewModel.command = command
+        viewModel.getMyListMoviesDb()
 
         }
 
-        viewModel.buscarFilmes().observe(this, observer)
+    fun setupObservable(){
+        viewModel.onSucessMyListFromDb.observe(viewLifecycleOwner, {
+            setupRecyclerView(it)
+        })
     }
-    fun setupRecyclerView(lista: List<Movie>){
+    fun setupRecyclerView(lista: List<MoviesList>){
         val myListAdapter = MyListAdapter(lista)
         val spanCount = 2
         val spacing = 50
@@ -62,13 +71,15 @@ class MyListFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentMyListBinding.inflate(inflater, container, false)
         return binding?.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupObservable()
 
     }
+
+    var command: MutableLiveData<Command> = MutableLiveData()
 
     override fun onDestroy() {
         super.onDestroy()
