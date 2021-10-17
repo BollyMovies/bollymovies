@@ -1,5 +1,7 @@
 package com.example.bollymovies.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Movie(
     val adult: Boolean? = null,
     var backdrop_path: String? = null,
@@ -24,5 +26,8 @@ data class Movie(
     val title: String? = null,
     val video: Boolean? = null,
     val vote_average: Double? = null,
-    val vote_count: Int? = null
+    val vote_count: Int? = null,
+    val videos: Videos? = null,
+    @SerializedName("watch/providers")
+    val streaming: Streaming? = null
 )

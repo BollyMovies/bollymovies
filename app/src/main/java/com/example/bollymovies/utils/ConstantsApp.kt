@@ -13,6 +13,8 @@ class ConstantsApp {
         const val QUERY_PARAM_CREDITS_VALUE = "credits"
         const val QUERY_PARAM_SORT_BY_LABEL = "sort_by"
         const val QUERY_PARAM_SORT_BY_VALUE = "release_date.desc"
+        const val QUERY_PARAM_APPEND_LABEL = "append_to_response"
+        const val QUERY_PARAM_APPEND_VALUE = "videos,credits,recommendations,similar,watch/providers"
     }
 
     object  Home {
