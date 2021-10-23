@@ -37,4 +37,7 @@ class MovieDetailsUseCase(
     suspend fun deleteMyListMovieDb(movie: MoviesList) =
         movieDetailsRepository.deleteMyListMovieDb(movie)
 
+    suspend fun getMyListMoviesDb() =
+        movieDetailsRepository.getMyListMoviesDb()
+
 }

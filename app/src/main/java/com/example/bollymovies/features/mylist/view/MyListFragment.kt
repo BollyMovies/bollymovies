@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bollymovies.adapter.HomeAdapter
 import com.example.bollymovies.adapter.MyListAdapter
@@ -37,14 +38,17 @@ class MyListFragment : Fragment() {
         viewModel.command = command
         viewModel.getMyListMoviesDb()
 
-        }
 
-    fun setupObservable(){
+
+    }
+
+    fun setupObservable() {
         viewModel.onSucessMyListFromDb.observe(viewLifecycleOwner, {
             setupRecyclerView(it)
         })
     }
-    fun setupRecyclerView(lista: List<MoviesList>){
+
+    fun setupRecyclerView(lista: List<MoviesList>) {
         val myListAdapter = MyListAdapter(lista)
         val spanCount = 2
         val spacing = 50
@@ -80,8 +84,8 @@ class MyListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupObservable()
+            }
 
-    }
 
     var command: MutableLiveData<Command> = MutableLiveData()
 

@@ -10,11 +10,6 @@ class MyListUseCase(
 ) {
     val myListRepository = MyListRepository(application)
 
-fun buscarFilmes(): List<Movie> {
-    val lista = myListRepository.getFakeData()
-    return lista
-}
-
     suspend fun getMyListMoviesDb() =
         myListRepository.getMyListMoviesDb()
 

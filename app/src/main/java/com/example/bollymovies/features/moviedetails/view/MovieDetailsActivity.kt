@@ -40,9 +40,19 @@ class MovieDetailsActivity : AppCompatActivity() {
             viewModel = ViewModelProvider(this)[MovieDetailsViewModel::class.java]
             viewModel.command = command
             viewModel.getMovieById(movieId)
+            viewModel.getMyListMoviesDb()
 
         }
         fun setupObservables() {
+
+            viewModel.onSucessMyListFromDb.observe(this, { list ->
+                for (moviesList in list) {
+                    if (moviesList.movieId == movieId){
+                        binding.cbMyList.isChecked = true
+                    }
+                }
+            })
+
             viewModel.onSuccessMovieById.observe(this, {
                 setupData(it)
 

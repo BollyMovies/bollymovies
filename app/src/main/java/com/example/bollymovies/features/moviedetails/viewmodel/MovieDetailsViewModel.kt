@@ -26,6 +26,17 @@ class MovieDetailsViewModel(
     val onSucessMovieByIdeFromDb: LiveData<Result>
         get() = _onSuccessMovieByIdFromDb
 
+    private val _onSucessMyListFromDb: MutableLiveData<List<MoviesList>> = MutableLiveData()
+    val onSucessMyListFromDb: LiveData<List<MoviesList>>
+        get() = _onSucessMyListFromDb
+
+    fun getMyListMoviesDb() {
+        viewModelScope.launch {
+            val myListMovies = movieDetailUseCase.getMyListMoviesDb()
+            _onSucessMyListFromDb.postValue(myListMovies)
+        }
+    }
+
     fun getMovieById(movieId: Int?) {
         viewModelScope.launch {
             callApi(

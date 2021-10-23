@@ -31,4 +31,9 @@ class MovieDetailsRepository(
         BollyMoviesDataBase.getDatabase(application)
             .moviesListDao().delete(movie)
 
+    suspend fun getMyListMoviesDb() =
+        BollyMoviesDataBase.getDatabase(application)
+            .moviesListDao().getAllFavorites()
+
 }
+
