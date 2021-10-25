@@ -18,7 +18,7 @@ fun Result.toMovie(): Movie {
         title = this.title,
         video = this.video,
         vote_average = this.vote_average,
-        vote_count = this.vote_count,
+        vote_count = this.vote_count
     )
 }
 

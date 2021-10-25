@@ -6,8 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bollymovies.base.BaseViewModel
-import com.example.bollymovies.model.Streaming
+import com.example.bollymovies.database.MoviesList
 import com.example.bollymovies.features.moviedetails.usecase.MovieDetailsUseCase
+import com.example.bollymovies.model.Streaming
 import com.example.bollymovies.model.Movie
 import com.example.bollymovies.model.Result
 import kotlinx.coroutines.launch
@@ -25,6 +26,17 @@ class MovieDetailsViewModel(
     val onSucessMovieByIdeFromDb: LiveData<Result>
         get() = _onSuccessMovieByIdFromDb
 
+    private val _onSucessMyListFromDb: MutableLiveData<List<MoviesList>> = MutableLiveData()
+    val onSucessMyListFromDb: LiveData<List<MoviesList>>
+        get() = _onSucessMyListFromDb
+
+    fun getMyListMoviesDb() {
+        viewModelScope.launch {
+            val myListMovies = movieDetailUseCase.getMyListMoviesDb()
+            _onSucessMyListFromDb.postValue(myListMovies)
+        }
+    }
+
     fun getMovieById(movieId: Int?) {
         viewModelScope.launch {
             callApi(
@@ -41,6 +53,18 @@ class MovieDetailsViewModel(
             val movieFromDb = movieDetailUseCase.getMovieByIdFromDb(movieId)
             _onSuccessMovieByIdFromDb.postValue(movieFromDb)
 
+        }
+    }
+
+    fun saveMyListMovieDb(movie: MoviesList) {
+        viewModelScope.launch {
+            movieDetailUseCase.saveMyListMovie(movie)
+        }
+    }
+
+    fun deleteMyListMovieDb(movie: MoviesList) {
+        viewModelScope.launch {
+            movieDetailUseCase.deleteMyListMovieDb(movie)
         }
     }
 }
