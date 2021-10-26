@@ -6,6 +6,7 @@ import com.example.bollymovies.api.ApiService
 import com.example.bollymovies.base.BaseRepository
 import com.example.bollymovies.database.BollyMoviesDataBase
 import com.example.bollymovies.database.MoviesList
+import com.example.bollymovies.database.WatchedMoviesList
 import com.example.bollymovies.model.Streaming
 import com.example.bollymovies.utils.ResponseApi
 
@@ -34,6 +35,20 @@ class MovieDetailsRepository(
     suspend fun getMyListMoviesDb() =
         BollyMoviesDataBase.getDatabase(application)
             .moviesListDao().getAllFavorites()
+
+    suspend fun getWatchedMoviesDb() =
+        BollyMoviesDataBase.getDatabase(application)
+            .watchedMoviesListDao().getAllFavorites()
+
+    suspend fun saveWatchedMovieDb(movie: WatchedMoviesList) =
+        BollyMoviesDataBase.getDatabase(application)
+            .watchedMoviesListDao().insertFavorites(movie)
+
+    suspend fun deleteWatchedMovieDb(movie: WatchedMoviesList) =
+        BollyMoviesDataBase.getDatabase(application)
+            .watchedMoviesListDao().delete(movie)
+
+
 
 }
 

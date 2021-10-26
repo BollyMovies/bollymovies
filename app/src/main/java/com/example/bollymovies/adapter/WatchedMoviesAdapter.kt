@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.bollymovies.database.MoviesList
+import com.example.bollymovies.database.WatchedMoviesList
 import com.example.bollymovies.databinding.MainCardItemBinding
 import com.example.bollymovies.datamodels.Movie
 import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
+import com.example.bollymovies.utils.ConstantsApp
 
 class WatchedMoviesAdapter(
-    private val watchedMovies: List<Movie>
+    private val watchedMovies: List<WatchedMoviesList>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,20 +41,24 @@ class WatchedMoviesAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            movie: Movie,
+            movie: WatchedMoviesList,
         ) {
             with(binding) {
-                tvMovieTitle.text = movie.titulo
-                ivMovieImage.setImageResource(movie.capa)
+                tvMovieTitle.text = movie.title
+                Glide
+                    .with(itemView.context)
+                    .load(movie.posterPath)
+                    .into(ivMovieImage)
                 binding.vgMainCard.setOnClickListener {
-                    onClick(binding.vgMainCard)
+                    onClick(binding.vgMainCard, movie)
                 }
             }
         }
     }
 
-    fun onClick(v: View?) {
+    fun onClick(v: View?, movie: WatchedMoviesList) {
         val intent = Intent(v?.context, MovieDetailsActivity::class.java)
+        intent.putExtra(ConstantsApp.Home.KEY_INTENT_MOVIE_ID, movie.movieId ?: -1)
         v?.context?.let { ContextCompat.startActivity(it, intent, null) }
     }
 

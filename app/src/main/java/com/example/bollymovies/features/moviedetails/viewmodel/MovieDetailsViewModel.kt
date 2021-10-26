@@ -3,12 +3,11 @@ package com.example.bollymovies.features.moviedetails.viewmodel
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bollymovies.base.BaseViewModel
 import com.example.bollymovies.database.MoviesList
+import com.example.bollymovies.database.WatchedMoviesList
 import com.example.bollymovies.features.moviedetails.usecase.MovieDetailsUseCase
-import com.example.bollymovies.model.Streaming
 import com.example.bollymovies.model.Movie
 import com.example.bollymovies.model.Result
 import kotlinx.coroutines.launch
@@ -26,16 +25,14 @@ class MovieDetailsViewModel(
     val onSucessMovieByIdeFromDb: LiveData<Result>
         get() = _onSuccessMovieByIdFromDb
 
-    private val _onSucessMyListFromDb: MutableLiveData<List<MoviesList>> = MutableLiveData()
-    val onSucessMyListFromDb: LiveData<List<MoviesList>>
-        get() = _onSucessMyListFromDb
+    private val _onSuccessMyListFromDb: MutableLiveData<List<MoviesList>> = MutableLiveData()
+    val onSuccessMyListFromDb: LiveData<List<MoviesList>>
+        get() = _onSuccessMyListFromDb
 
-    fun getMyListMoviesDb() {
-        viewModelScope.launch {
-            val myListMovies = movieDetailUseCase.getMyListMoviesDb()
-            _onSucessMyListFromDb.postValue(myListMovies)
-        }
-    }
+    private val _onSuccessWatchedFromDb: MutableLiveData<List<WatchedMoviesList>> = MutableLiveData()
+    val onSuccessWatchedFromDb: LiveData<List<WatchedMoviesList>>
+        get() = _onSuccessWatchedFromDb
+
 
     fun getMovieById(movieId: Int?) {
         viewModelScope.launch {
@@ -65,6 +62,32 @@ class MovieDetailsViewModel(
     fun deleteMyListMovieDb(movie: MoviesList) {
         viewModelScope.launch {
             movieDetailUseCase.deleteMyListMovieDb(movie)
+        }
+    }
+
+    fun getMyListMoviesDb() {
+        viewModelScope.launch {
+            val myListMovies = movieDetailUseCase.getMyListMoviesDb()
+            _onSuccessMyListFromDb.postValue(myListMovies)
+        }
+    }
+
+    fun saveWatchedMovieDb(movie: WatchedMoviesList) {
+        viewModelScope.launch {
+            movieDetailUseCase.saveWatchedMovie(movie)
+        }
+    }
+
+    fun deleteWatchedMovieDb(movie: WatchedMoviesList) {
+        viewModelScope.launch {
+            movieDetailUseCase.deleteWatchedMovieDb(movie)
+        }
+    }
+
+    fun getWatchedMoviesDb() {
+        viewModelScope.launch {
+            val myListMovies = movieDetailUseCase.getWatchedMoviesDb()
+            _onSuccessWatchedFromDb.postValue(myListMovies)
         }
     }
 }

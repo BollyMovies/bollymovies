@@ -11,10 +11,11 @@ import com.example.bollymovies.model.Result
 
 object BollyMoviesDataBase {
 
-    @Database(entities = [Result::class,MoviesList::class], version = 1, exportSchema = false)
+    @Database(entities = [Result::class,MoviesList::class,WatchedMoviesList::class], version = 1, exportSchema = false)
     abstract class BollyMoviesRoomDatabase : RoomDatabase() {
         abstract fun moviesHomeDao(): MoviesHomeDao
         abstract fun moviesListDao(): MoviesListDao
+        abstract fun watchedMoviesListDao(): WatchedMoviesListDao
     }
 
     fun getDatabase(context: Context) : BollyMoviesRoomDatabase {
