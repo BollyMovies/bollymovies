@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/ivArrowBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:src="@drawable/ic_baseline_arrow_back_24"
@@ -26,7 +26,7 @@
 
 
         <com.rishabhharit.roundedimageview.RoundedImageView
-            android:id="@+id/ivMovieImage"
+            android:id="@+id/ivMovieDetailsImage"
             android:layout_width="150dp"
             android:layout_height="220dp"
             android:layout_marginTop="20dp"
@@ -35,7 +35,7 @@
             app:cornerRadius="25dp"
             app:layout_constraintStart_toStartOf="@id/ivArrowBack"
             app:layout_constraintTop_toBottomOf="@id/ivArrowBack"
-            android:src="@drawable/lion" />
+            android:src="@drawable/placeholder" />
 
         <TextView
             android:id="@+id/tvMovieName"
@@ -43,12 +43,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:textStyle="bold"
             android:textAlignment="center"
-            app:layout_constraintStart_toEndOf="@id/ivMovieImage"
-            app:layout_constraintTop_toTopOf="@id/ivMovieImage"
-            android:text="Lion 345" />
+            app:layout_constraintStart_toEndOf="@id/ivMovieDetailsImage"
+            app:layout_constraintTop_toTopOf="@id/ivMovieDetailsImage"
+            tools:text="Não encontrado" />
 
 
         <me.zhanghai.android.materialratingbar.MaterialRatingBar
@@ -137,7 +137,7 @@
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/tvStreaming"
             app:layout_constraintStart_toStartOf="@id/tvStreaming"
-            tools:itemCount="1"
+            tools:itemCount="4"
             tools:listitem="@layout/item_streaming" />
 
         <Button
@@ -165,8 +165,8 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tvDescriptionText"
-            app:layout_constraintStart_toStartOf="@id/ivMovieImage"
-            app:layout_constraintTop_toBottomOf="@id/ivMovieImage" />
+            app:layout_constraintStart_toStartOf="@id/ivMovieDetailsImage"
+            app:layout_constraintTop_toBottomOf="@id/ivMovieDetailsImage" />
 
         <TextView
             android:id="@+id/tvDescriptionText"
@@ -174,9 +174,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_text_to_title"
             android:textColor="@color/white"
-            android:text="Aos cinco anos de idade, o indiano Saroo se perdeu do irmão numa estação de trem de Calcutá e enfrentou grandes desafios para sobreviver sozinho, até ser adotado por uma família australiana. Incapaz de superar o que aconteceu, aos 25 anos ele decide buscar uma forma de reencontrar sua família biológica."
+            tools:text="Aos cinco anos de idade, o indiano Saroo se perdeu do irmão numa estação de trem de Calcutá e enfrentou grandes desafios para sobreviver sozinho, até ser adotado por uma família australiana. Incapaz de superar o que aconteceu, aos 25 anos ele decide buscar uma forma de reencontrar sua família biológica."
             android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@id/ivMovieImage"
+            app:layout_constraintStart_toStartOf="@id/ivMovieDetailsImage"
             app:layout_constraintEnd_toEndOf="@id/btTrailerFilmsSeries"
             app:layout_constraintTop_toBottomOf="@id/tvDescriptionTitle" />
 
@@ -186,7 +186,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Ano de lançamento: 2016"
+            tools:text="Não encontrado"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tvMovieName"
             app:layout_constraintTop_toBottomOf="@id/ratingBarFilmsSeries"
@@ -196,7 +196,7 @@
             android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Duração: 2h 9min"
+            tools:text="Não encontrado"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tvYear"
             app:layout_constraintTop_toBottomOf="@id/tvYear" />
@@ -207,18 +207,20 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/default_margin"
             android:maxLines="3"
-            android:text="Elenco: Dev Patel, Saroo Brierley, Nicole Kidman, Rooney Mara"
+            android:minLines="1"
+            android:text="@string/cast_not_found"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tvYear"
             app:layout_constraintEnd_toEndOf="@id/tvMovieName"
-            app:layout_constraintTop_toBottomOf="@id/tvTime" />
+            app:layout_constraintTop_toBottomOf="@id/tvTime"
+            />
 
         <TextView
             android:id="@+id/tvDirector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Direção: Garth Davis"
+            tools:text="Direção: Não encontrado"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tvYear"
             app:layout_constraintTop_toBottomOf="@id/tvCast" />

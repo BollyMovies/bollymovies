@@ -6,21 +6,53 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bollymovies.adapter.HomeAdapter
+import com.example.bollymovies.base.BaseFragment
 import com.example.bollymovies.databinding.FragmentHomeBinding
 import com.example.bollymovies.datamodels.Movie
 import com.example.bollymovies.features.home.viewmodel.HomeViewModel
 import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
+import com.example.bollymovies.model.Result
+import com.example.bollymovies.utils.Command
+import com.example.bollymovies.utils.ConstantsApp.Home.KEY_INTENT_MOVIE_ID
 import com.example.bollymovies.utils.onMovieClickListener
+import com.google.android.material.snackbar.Snackbar
 
 
-class HomeFragment : Fragment(), onMovieClickListener {
+class HomeFragment : BaseFragment() {
 
     private var binding: FragmentHomeBinding? = null
     private lateinit var viewModel: HomeViewModel
+
+
+    private val nowPlayingAdapter: HomeAdapter by lazy {
+        HomeAdapter { movie ->
+            val intent = Intent(context, MovieDetailsActivity::class.java)
+            intent.putExtra(KEY_INTENT_MOVIE_ID, movie?.id ?: -1)
+            startActivity(intent)
+        }
+    }
+
+    private val popularAdapter: HomeAdapter by lazy {
+        HomeAdapter { movie ->
+            val intent = Intent(context, MovieDetailsActivity::class.java)
+            intent.putExtra(KEY_INTENT_MOVIE_ID, movie?.id ?: -1)
+            startActivity(intent)
+        }
+    }
+
+    private val topRatedAdapter: HomeAdapter by lazy {
+        HomeAdapter { movie ->
+            val intent = Intent(context, MovieDetailsActivity::class.java)
+            intent.putExtra(KEY_INTENT_MOVIE_ID, movie?.id ?: -1)
+            startActivity(intent)
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,56 +66,48 @@ class HomeFragment : Fragment(), onMovieClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.let {
-            viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+            viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+            viewModel.command = command
+
+            setupRecyclerViews()
+            loadNowPlaying()
+            loadPopular()
+            loadTopRated()
+
         }
+    }
 
-        fun setupLancamentosRecyclerView(lista: List<Movie>) {
-            val lancamentosAdapter = HomeAdapter(lista)
-
-            binding?.vgCardsListLancamentos?.apply {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = lancamentosAdapter
-            }
+    private fun setupRecyclerViews() {
+        binding?.vgCardsListLancamentos?.apply {
+            layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = nowPlayingAdapter
         }
-
-        fun setupPopularRecyclerView(lista: List<Movie>) {
-            val popularAdapter = HomeAdapter(lista)
-            binding?.vgCardsListPopular?.apply {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = popularAdapter
-            }
+        binding?.vgCardsListPopular?.apply {
+            layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = popularAdapter
         }
-
-        fun setupSugestionRecyclerView(lista: List<Movie>) {
-            val sugestionAdapter = HomeAdapter(lista)
-            binding?.vgCardsListSugestion?.apply {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = sugestionAdapter
-            }
+        binding?.vgCardsListTopRated?.apply {
+            layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = topRatedAdapter
         }
+    }
 
-        fun carregarLancamentos() {
-            viewModel.buscarLancamentos().observe(viewLifecycleOwner, Observer { movies ->
-                setupLancamentosRecyclerView(movies)
-            })
-        }
+    private fun loadNowPlaying() {
+        viewModel.nowPlayingPagedList?.observe(viewLifecycleOwner, { pagedList ->
+            nowPlayingAdapter.submitList(pagedList)
+        })
+    }
 
-        fun carregarPopular() {
-            viewModel.buscarPopular().observe(viewLifecycleOwner, Observer { movies ->
-                setupPopularRecyclerView(movies)
-            })
-        }
+    private fun loadPopular() {
+        viewModel.popularPagedList?.observe(viewLifecycleOwner, { pagedList ->
+            popularAdapter.submitList(pagedList)
+        })
+    }
 
-        fun carregarSugestion() {
-            viewModel.buscarSugestion().observe(viewLifecycleOwner, Observer { movies ->
-                setupSugestionRecyclerView(movies)
-            })
-        }
-
-        carregarSugestion()
-        carregarPopular()
-        carregarLancamentos()
-
+    private fun loadTopRated() {
+        viewModel.topRatedPagedList?.observe(viewLifecycleOwner, { pagedList ->
+            topRatedAdapter.submitList(pagedList)
+        })
     }
 
     override fun onDestroy() {
@@ -91,8 +115,5 @@ class HomeFragment : Fragment(), onMovieClickListener {
         binding = null
     }
 
-    override fun onClickListener(movie: Movie) {
-        val intent = Intent(context, MovieDetailsActivity::class.java)
-        startActivity(intent)
-    }
+    override var command: MutableLiveData<Command> = MutableLiveData()
 }
