@@ -1,24 +1,18 @@
 package com.example.bollymovies.features.moviedetails.view
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.widget.CheckBox
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.example.bollymovies.adapter.HomeAdapter
 import com.example.bollymovies.adapter.StreamingAdapter
-import com.example.bollymovies.database.BollyMoviesDataBase
 import com.example.bollymovies.database.MoviesList
+import com.example.bollymovies.database.WatchedMoviesList
 import com.example.bollymovies.databinding.ActivityMovieDetailsBinding
 import com.example.bollymovies.extensions.getFirst4Chars
 import com.example.bollymovies.extensions.toMovie
-import com.example.bollymovies.model.Streaming
 import com.example.bollymovies.features.moviedetails.viewmodel.MovieDetailsViewModel
-import com.example.bollymovies.model.Flatrate
 import com.example.bollymovies.model.Movie
 import com.example.bollymovies.utils.Command
 import com.example.bollymovies.utils.ConstantsApp.Home.KEY_INTENT_MOVIE_ID
@@ -41,14 +35,23 @@ class MovieDetailsActivity : AppCompatActivity() {
             viewModel.command = command
             viewModel.getMovieById(movieId)
             viewModel.getMyListMoviesDb()
+            viewModel.getWatchedMoviesDb()
 
         }
         fun setupObservables() {
 
-            viewModel.onSucessMyListFromDb.observe(this, { list ->
+            viewModel.onSuccessMyListFromDb.observe(this, { list ->
                 for (moviesList in list) {
                     if (moviesList.movieId == movieId){
                         binding.cbMyList.isChecked = true
+                    }
+                }
+            })
+
+            viewModel.onSuccessWatchedFromDb.observe(this, { watched ->
+                for (movie in watched) {
+                    if (movie.movieId == movieId){
+                        binding.cbWatchedFilmsSeries.isChecked = true
                     }
                 }
             })
@@ -60,12 +63,21 @@ class MovieDetailsActivity : AppCompatActivity() {
                 val poster = it.poster_path
                 val title = it.title
                 val movie = MoviesList(id, title, poster)
+                val watched = WatchedMoviesList(id, title, poster)
 
                 binding.cbMyList.setOnClickListener {
                     if (binding.cbMyList.isChecked) {
                         viewModel.saveMyListMovieDb(movie)
                     } else {
                         viewModel.deleteMyListMovieDb(movie)
+                    }
+                }
+
+                binding.cbWatchedFilmsSeries.setOnClickListener {
+                    if (binding.cbWatchedFilmsSeries.isChecked) {
+                        viewModel.saveWatchedMovieDb(watched)
+                    } else {
+                        viewModel.deleteWatchedMovieDb(watched)
                     }
                 }
 

@@ -2,6 +2,7 @@ package com.example.bollymovies.features.moviedetails.usecase
 
 import android.app.Application
 import com.example.bollymovies.database.MoviesList
+import com.example.bollymovies.database.WatchedMoviesList
 import com.example.bollymovies.extensions.getFullImageUrl
 import com.example.bollymovies.model.Streaming
 import com.example.bollymovies.features.moviedetails.repository.MovieDetailsRepository
@@ -39,5 +40,16 @@ class MovieDetailsUseCase(
 
     suspend fun getMyListMoviesDb() =
         movieDetailsRepository.getMyListMoviesDb()
+
+    suspend fun getWatchedMoviesDb() =
+        movieDetailsRepository.getWatchedMoviesDb()
+
+    suspend fun saveWatchedMovie(movie: WatchedMoviesList) =
+        movieDetailsRepository.saveWatchedMovieDb(movie)
+
+    suspend fun deleteWatchedMovieDb(movie: WatchedMoviesList) =
+        movieDetailsRepository.deleteWatchedMovieDb(movie)
+
+
 
 }
