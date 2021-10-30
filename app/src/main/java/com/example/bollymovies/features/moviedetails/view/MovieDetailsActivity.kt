@@ -113,6 +113,27 @@ class MovieDetailsActivity : AppCompatActivity() {
                 }
             }
 
+            binding.tvMyListLabel.setOnClickListener{
+                if (binding.cbMyListMovies.isChecked){
+                    binding.cbMyListMovies.isChecked = false
+                    viewModel.deleteMyListMovieDb(movie)
+                } else {
+                    binding.cbMyListMovies.isChecked = true
+                    viewModel.saveMyListMovieDb(movie)
+                }
+            }
+
+            binding.tvWatchedMovies.setOnClickListener{
+                if (binding.cbWatchedMovies.isChecked){
+                    binding.cbWatchedMovies.isChecked = false
+                    viewModel.deleteWatchedMovieDb(watched)
+                } else {
+                    binding.cbWatchedMovies.isChecked = true
+                    viewModel.saveWatchedMovieDb(watched)
+                }
+            }
+
+
             binding.cbWatchedMovies.setOnClickListener {
                 if (binding.cbWatchedMovies.isChecked) {
                     viewModel.saveWatchedMovieDb(watched)

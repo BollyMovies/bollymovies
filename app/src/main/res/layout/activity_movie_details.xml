@@ -86,7 +86,7 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
-            android:id="@+id/tvWatchedMovies"
+            android:id="@+id/tvMyListLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tv_my_list"
@@ -110,7 +110,7 @@
             app:layout_constraintTop_toTopOf="@id/cbMyListMovies" />
 
         <TextView
-            android:id="@+id/tvMyList"
+            android:id="@+id/tvWatchedMovies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tv_watched_movies"
@@ -118,6 +118,16 @@
             app:layout_constraintEnd_toEndOf="@id/cbWatchedMovies"
             app:layout_constraintStart_toStartOf="@id/cbWatchedMovies"
             app:layout_constraintTop_toBottomOf="@id/cbWatchedMovies" />
+
+        <TextView
+            android:id="@+id/tvShareLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_share"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/btn_share"
+            app:layout_constraintStart_toStartOf="@id/btn_share"
+            app:layout_constraintTop_toBottomOf="@id/btn_share" />
 
 
         <TextView
@@ -229,13 +239,16 @@
             app:layout_constraintEnd_toEndOf="@id/tvCast"
             app:layout_constraintTop_toBottomOf="@id/tvCast" />
 
-        <Button
+        <ImageView
             android:id="@+id/btn_share"
-            android:text="COMPARTILHAR"
             android:layout_width="0dp"
+            android:paddingTop="12dp"
+            android:paddingHorizontal="12dp"
+            android:layout_marginEnd="48dp"
+            android:src="@drawable/ic_share"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/cbMyListMovies"
-            app:layout_constraintStart_toStartOf="@id/cbMyListMovies"/>
+            app:layout_constraintBottom_toBottomOf="@id/cbMyListMovies"
+            app:layout_constraintEnd_toStartOf="@id/cbMyListMovies"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
