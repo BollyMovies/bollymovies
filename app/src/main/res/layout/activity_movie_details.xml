@@ -15,6 +15,7 @@
 
         <ImageView
             android:id="@+id/ivArrowBack"
+            android:background="?selectableItemBackgroundBorderless"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginStart="20dp"
@@ -254,6 +255,27 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@id/cbMyListMovies"
             app:layout_constraintEnd_toStartOf="@id/cbMyListMovies"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_youtube"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            android:background="@color/primary"
+            android:layout_gravity="center">
+
+                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                android:id="@+id/youtubePlayerDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:enableAutomaticInitialization="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -93,6 +93,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
+    //YoutubePlayerView from https://github.com/PierfrancescoSoffritti/android-youtube-player
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+    implementation 'com.vipulasri:ticketview:1.1.2'
+
     //Tests
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

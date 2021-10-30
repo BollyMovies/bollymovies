@@ -5,8 +5,8 @@ import android.content.pm.PackageManager.*
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isNotEmpty
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +23,8 @@ import com.example.bollymovies.features.moviedetails.viewmodel.MovieDetailsViewM
 import com.example.bollymovies.model.Movie
 import com.example.bollymovies.utils.Command
 import com.example.bollymovies.utils.ConstantsApp.Home.KEY_INTENT_MOVIE_ID
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -30,6 +32,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     lateinit var binding: ActivityMovieDetailsBinding
     private lateinit var viewModel: MovieDetailsViewModel
     private var movieId: Int? = null
+    lateinit var movieFromId: Movie
 //    private var permissions = arrayOf(
 //        Manifest.permission.READ_EXTERNAL_STORAGE,
 //        Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -58,7 +61,14 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
 
         binding.btnShare.setOnClickListener {
+            sharedTitle = binding.tvMovieName.text.toString()
+            overview = binding.tvDescriptionText.text.toString()
+            year = binding.tvYear.text.toString()
 //           this.image = getBitmapFromView(binding.ivMovieDetailsImage)
+            goToShare()
+        }
+
+        binding.tvShareLabel.setOnClickListener{
             sharedTitle = binding.tvMovieName.text.toString()
             overview = binding.tvDescriptionText.text.toString()
             year = binding.tvYear.text.toString()
@@ -86,28 +96,29 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         viewModel.onSuccessMovieById.observe(this, {
             setupData(it)
+            movieFromId = it
 
             val id = it.id
             val poster = it.poster_path
             val title = it.title
-            val movie = MoviesList(id, title, poster)
+            val movieFromList = MoviesList(id, title, poster)
             val watched = WatchedMoviesList(id, title, poster)
 
             binding.cbMyListMovies.setOnClickListener {
                 if (binding.cbMyListMovies.isChecked) {
-                    viewModel.saveMyListMovieDb(movie)
+                    viewModel.saveMyListMovieDb(movieFromList)
                 } else {
-                    viewModel.deleteMyListMovieDb(movie)
+                    viewModel.deleteMyListMovieDb(movieFromList)
                 }
             }
 
             binding.tvMyListLabel.setOnClickListener{
                 if (binding.cbMyListMovies.isChecked){
                     binding.cbMyListMovies.isChecked = false
-                    viewModel.deleteMyListMovieDb(movie)
+                    viewModel.deleteMyListMovieDb(movieFromList)
                 } else {
                     binding.cbMyListMovies.isChecked = true
-                    viewModel.saveMyListMovieDb(movie)
+                    viewModel.saveMyListMovieDb(movieFromList)
                 }
             }
 
@@ -128,6 +139,10 @@ class MovieDetailsActivity : AppCompatActivity() {
                 } else {
                     viewModel.deleteWatchedMovieDb(watched)
                 }
+            }
+
+            binding.btTrailerFilmsSeries.setOnClickListener{
+                setupVideo(movieFromId)
             }
 
             binding.vgStreaming.apply {
@@ -251,6 +266,26 @@ class MovieDetailsActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun setupVideo(movie: Movie){
+        if (movie.videos!!.results.isNotEmpty()) {
+            val youtube = movie.videos.results.last()
+            binding.apply {
+                clYoutube.isVisible = true
+                youtubePlayerDetail.addYouTubePlayerListener(object :
+                    AbstractYouTubePlayerListener() {
+                    override fun onReady(youTubePlayer: YouTubePlayer) {
+                        youtube.key.let { it1 -> youTubePlayer.loadVideo(it1, 0f) }
+                    }
+                })
+                youtubePlayerDetail.isFullScreen()
+            }
+        } else {
+            Toast.makeText(this, "Trailer não encontrado!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
 
     private fun textIsNotNull(text: String): String {
         if (text != "null") {
