@@ -29,5 +29,7 @@
     <string name="name">Nome</string>
     <string name="forgot_password"><u>Esqueci minha senha</u></string>
     <string name="create_account">Ainda não possui uma conta? <u>Criar agora!</u></string>
+    <string name="my_account">Minha conta</string>
+    <string name="search">Procurar</string>
 
 </resources>
