@@ -2,25 +2,20 @@ package com.example.bollymovies.features.home.view
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bollymovies.adapter.HomeAdapter
 import com.example.bollymovies.base.BaseFragment
 import com.example.bollymovies.databinding.FragmentHomeBinding
-import com.example.bollymovies.datamodels.Movie
+
 import com.example.bollymovies.features.home.viewmodel.HomeViewModel
 import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
-import com.example.bollymovies.model.Result
 import com.example.bollymovies.utils.Command
 import com.example.bollymovies.utils.ConstantsApp.Home.KEY_INTENT_MOVIE_ID
-import com.example.bollymovies.utils.onMovieClickListener
-import com.google.android.material.snackbar.Snackbar
 
 
 class HomeFragment : BaseFragment() {

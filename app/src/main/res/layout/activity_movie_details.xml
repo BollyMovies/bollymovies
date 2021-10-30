@@ -161,7 +161,6 @@
             android:id="@+id/btTrailerFilmsSeries"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_marginEnd="@dimen/default_margin"
             android:backgroundTint="@color/secondary"
             android:text="@string/trailer_watch_btn_text"
             android:textAllCaps="false"
@@ -169,7 +168,7 @@
             app:icon="@drawable/ic_baseline_play_circle_24"
             app:layout_constraintStart_toStartOf="@id/tvMovieName"
             app:layout_constraintEnd_toEndOf="@id/tvMovieName"
-            app:layout_constraintTop_toBottomOf="@id/tvDirector" />
+            app:layout_constraintBottom_toBottomOf="@id/ivMovieDetailsImage" />
 
 
         <TextView

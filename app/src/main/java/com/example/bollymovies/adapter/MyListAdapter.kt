@@ -4,13 +4,11 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.bollymovies.database.MoviesList
 import com.example.bollymovies.databinding.MainCardItemBinding
-import com.example.bollymovies.datamodels.Movie
 import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
 import com.example.bollymovies.utils.ConstantsApp
 

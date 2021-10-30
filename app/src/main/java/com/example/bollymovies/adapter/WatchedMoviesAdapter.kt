@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.bollymovies.database.MoviesList
 import com.example.bollymovies.database.WatchedMoviesList
 import com.example.bollymovies.databinding.MainCardItemBinding
-import com.example.bollymovies.datamodels.Movie
 import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
 import com.example.bollymovies.utils.ConstantsApp
 

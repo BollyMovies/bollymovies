@@ -245,6 +245,8 @@ class MovieDetailsActivity : AppCompatActivity() {
                     binding.ratingBarFilmsSeries.rating = (it / 2.0f).toFloat()
                     binding.tvCast.text =
                         movie.credits?.getCastName(context = this@MovieDetailsActivity)
+                    binding.tvDirector.text =
+                        movie.credits?.getDirectorName(this@MovieDetailsActivity)
                 }
             }
         }
