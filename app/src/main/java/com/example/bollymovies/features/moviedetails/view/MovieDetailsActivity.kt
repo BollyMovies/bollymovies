@@ -22,6 +22,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.bollymovies.R
 import com.example.bollymovies.adapter.StreamingAdapter
 import com.example.bollymovies.database.MoviesList
 import com.example.bollymovies.database.WatchedMoviesList
@@ -150,8 +151,8 @@ class MovieDetailsActivity : AppCompatActivity() {
     private fun goToShare() {
         val share = Intent(Intent.ACTION_SEND)
         share.type = "text/plain"
-        share.putExtra(Intent.EXTRA_TEXT, "Vi este filme no App BollyMovies e lembrei de você!\n$sharedTitle ($year) - $overview")
-        startActivity(Intent.createChooser(share, "Compartilhar via"))
+        share.putExtra(Intent.EXTRA_TEXT, "Vi este filme no App BollyMovies e lembrei de você!\n\n$sharedTitle ($year)\n\n$overview")
+        startActivity(Intent.createChooser(share, this.getString(R.string.txt_shared_title)))
     }
 //    private fun getBitmapFromView(view: ImageView): Bitmap? {
 //        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
