@@ -150,7 +150,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     private fun goToShare() {
         val share = Intent(Intent.ACTION_SEND)
         share.type = "text/plain"
-        share.putExtra(Intent.EXTRA_TEXT, "$sharedTitle ($year) - $overview")
+        share.putExtra(Intent.EXTRA_TEXT, "Vi este filme no App BollyMovies e lembrei de você!\n$sharedTitle ($year) - $overview")
         startActivity(Intent.createChooser(share, "Compartilhar via"))
     }
 //    private fun getBitmapFromView(view: ImageView): Bitmap? {
