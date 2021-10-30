@@ -43,7 +43,7 @@ class MovieDetailsActivity : AppCompatActivity() {
             viewModel.onSuccessMyListFromDb.observe(this, { list ->
                 for (moviesList in list) {
                     if (moviesList.movieId == movieId){
-                        binding.cbMyList.isChecked = true
+                        binding.cbMyListMovies.isChecked = true
                     }
                 }
             })
@@ -51,7 +51,7 @@ class MovieDetailsActivity : AppCompatActivity() {
             viewModel.onSuccessWatchedFromDb.observe(this, { watched ->
                 for (movie in watched) {
                     if (movie.movieId == movieId){
-                        binding.cbWatchedFilmsSeries.isChecked = true
+                        binding.cbWatchedMovies.isChecked = true
                     }
                 }
             })
@@ -65,16 +65,16 @@ class MovieDetailsActivity : AppCompatActivity() {
                 val movie = MoviesList(id, title, poster)
                 val watched = WatchedMoviesList(id, title, poster)
 
-                binding.cbMyList.setOnClickListener {
-                    if (binding.cbMyList.isChecked) {
+                binding.cbMyListMovies.setOnClickListener {
+                    if (binding.cbMyListMovies.isChecked) {
                         viewModel.saveMyListMovieDb(movie)
                     } else {
                         viewModel.deleteMyListMovieDb(movie)
                     }
                 }
 
-                binding.cbWatchedFilmsSeries.setOnClickListener {
-                    if (binding.cbWatchedFilmsSeries.isChecked) {
+                binding.cbWatchedMovies.setOnClickListener {
+                    if (binding.cbWatchedMovies.isChecked) {
                         viewModel.saveWatchedMovieDb(watched)
                     } else {
                         viewModel.deleteWatchedMovieDb(watched)

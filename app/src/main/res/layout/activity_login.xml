@@ -82,37 +82,6 @@
                 android:textCursorDrawable="@null"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/tf_confirmar_senha"-->
-<!--            android:layout_width="300dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:hint="Confirmar senha"-->
-<!--            app:boxCornerRadiusBottomEnd="30dp"-->
-<!--            app:boxCornerRadiusBottomStart="30dp"-->
-<!--            app:boxCornerRadiusTopEnd="30dp"-->
-<!--            app:boxCornerRadiusTopStart="30dp"-->
-<!--            app:boxStrokeWidth="0dp"-->
-<!--            app:boxStrokeWidthFocused="0dp"-->
-<!--            app:hintTextColor="@color/primary"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/btn_register"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/tf_senha"-->
-<!--            app:layout_goneMarginBottom="20dp"-->
-<!--            app:passwordToggleContentDescription="Mostrar senha"-->
-<!--            app:passwordToggleEnabled="true"-->
-<!--            app:startIconDrawable="@drawable/ic_baseline_lock_24"-->
-<!--            >-->
-
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/campo_confirmar_senha"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:inputType="textPassword"-->
-<!--                android:textCursorDrawable="@null"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_enter"
             android:layout_width="0dp"

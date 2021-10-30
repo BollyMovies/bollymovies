@@ -31,6 +31,7 @@ class WatchedMoviesFragment : Fragment() {
         viewModel.command = command
         viewModel.getWatchedMoviesDb()
 
+
     }
 
     fun setupObservable() {
@@ -72,13 +73,8 @@ class WatchedMoviesFragment : Fragment() {
         return binding?.root
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        setupObservable()
-//    }
-
-    override fun onResume() {
-        super.onResume()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupObservable()
     }
 

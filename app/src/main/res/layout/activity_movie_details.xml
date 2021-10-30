@@ -39,14 +39,16 @@
 
         <TextView
             android:id="@+id/tvMovieName"
-            android:layout_width="210sp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginHorizontal="@dimen/default_margin"
             android:textColor="@color/white"
             android:textSize="17sp"
             android:textStyle="bold"
+            android:maxLines="3"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/ivMovieDetailsImage"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ivMovieDetailsImage"
             tools:text="Não encontrado" />
 
@@ -69,16 +71,17 @@
             app:mrb_progressTint="@android:color/holo_orange_light" />
 
         <CheckBox
-            android:id="@+id/cbWatchedFilmsSeries"
+            android:id="@+id/cbMyListMovies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="48dp"
+            android:background="@android:color/transparent"
             android:button="@null"
             app:layout_constraintHorizontal_chainStyle="packed"
-            android:drawableBottom="@drawable/checkbox_watched_selector"
+            android:drawableBottom="@drawable/checkbox_favorite_selector"
             android:drawableTint="@color/white"
-            app:layout_constraintEnd_toStartOf="@id/cbMyList"
+            app:layout_constraintEnd_toStartOf="@id/cbWatchedMovies"
             app:layout_constraintStart_toStartOf="@id/ratingBarFilmsSeries"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -86,34 +89,35 @@
             android:id="@+id/tvWatchedMovies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_watched_movies"
+            android:text="@string/tv_my_list"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@id/cbWatchedFilmsSeries"
-            app:layout_constraintStart_toStartOf="@id/cbWatchedFilmsSeries"
-            app:layout_constraintTop_toBottomOf="@id/cbWatchedFilmsSeries" />
+            app:layout_constraintEnd_toEndOf="@id/cbMyListMovies"
+            app:layout_constraintStart_toStartOf="@id/cbMyListMovies"
+            app:layout_constraintTop_toBottomOf="@id/cbMyListMovies" />
 
         <CheckBox
-            android:id="@+id/cbMyList"
+            android:id="@+id/cbWatchedMovies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:background="@android:color/transparent"
             android:layout_marginEnd="@dimen/default_margin"
             android:button="@null"
-            android:drawableBottom="@drawable/checkbox_favorite_selector"
+            android:drawableBottom="@drawable/checkbox_watched_selector"
             android:drawableTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cbWatchedFilmsSeries"
-            app:layout_constraintTop_toTopOf="@id/cbWatchedFilmsSeries" />
+            app:layout_constraintStart_toEndOf="@id/cbMyListMovies"
+            app:layout_constraintTop_toTopOf="@id/cbMyListMovies" />
 
         <TextView
             android:id="@+id/tvMyList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_my_list"
+            android:text="@string/tv_watched_movies"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@id/cbMyList"
-            app:layout_constraintStart_toStartOf="@id/cbMyList"
-            app:layout_constraintTop_toBottomOf="@id/cbMyList" />
+            app:layout_constraintEnd_toEndOf="@id/cbWatchedMovies"
+            app:layout_constraintStart_toStartOf="@id/cbWatchedMovies"
+            app:layout_constraintTop_toBottomOf="@id/cbWatchedMovies" />
 
 
         <TextView
@@ -182,7 +186,6 @@
 
         <TextView
             android:id="@+id/tvYear"
-            android:layout_marginEnd="5dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -194,21 +197,21 @@
 
         <TextView
             android:id="@+id/tvTime"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="Não encontrado"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tvYear"
+            app:layout_constraintEnd_toEndOf="@id/tvYear"
             app:layout_constraintTop_toBottomOf="@id/tvYear" />
 
         <TextView
             android:id="@+id/tvCast"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/default_margin"
             android:maxLines="3"
             android:minLines="1"
-            android:text="@string/cast_not_found"
+            tools:text="@string/cast_not_found"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tvYear"
             app:layout_constraintEnd_toEndOf="@id/tvMovieName"
@@ -217,12 +220,13 @@
 
         <TextView
             android:id="@+id/tvDirector"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             tools:text="Direção: Não encontrado"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tvYear"
+            app:layout_constraintEnd_toEndOf="@id/tvCast"
             app:layout_constraintTop_toBottomOf="@id/tvCast" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
