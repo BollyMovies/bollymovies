@@ -1,23 +1,13 @@
 package com.example.bollymovies.features.moviedetails.view
 
-import android.Manifest
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.content.pm.PackageManager.*
 import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.AttributeSet
 import android.view.View
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
+import androidx.core.view.isNotEmpty
+import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,8 +23,6 @@ import com.example.bollymovies.features.moviedetails.viewmodel.MovieDetailsViewM
 import com.example.bollymovies.model.Movie
 import com.example.bollymovies.utils.Command
 import com.example.bollymovies.utils.ConstantsApp.Home.KEY_INTENT_MOVIE_ID
-import com.google.android.datatransport.runtime.scheduling.SchedulingConfigModule_ConfigFactory.config
-import java.io.ByteArrayOutputStream
 
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -145,10 +133,15 @@ class MovieDetailsActivity : AppCompatActivity() {
             binding.vgStreaming.apply {
                 layoutManager =
                     LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = it.streaming?.results?.BR?.let { it1 ->
+                adapter = it.watch_providers?.results?.BR?.let { it1 ->
                     it1.flatrate?.let { it2 ->
                         StreamingAdapter(it2)
                     }
+                }
+                if (adapter?.itemCount != 0 && adapter?.itemCount != null){
+                    binding.tvStreaming.visibility = View.VISIBLE
+                } else {
+                    binding.tvStreaming.visibility = View.GONE
                 }
             }
         })

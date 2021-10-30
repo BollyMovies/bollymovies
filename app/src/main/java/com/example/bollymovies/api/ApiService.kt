@@ -82,7 +82,6 @@ object ApiService {
                     .addQueryParameter(API_TOKEN_KEY, API_TOKEN)
                     .addQueryParameter(QUERY_PARAM_LANGUAGE_KEY, QUERY_PARAM_LANGUAGE_VALUE)
                     .addQueryParameter(QUERY_PARAM_ORIGINAL_LANGUAGE_LABEL, QUERY_PARAM_ORIGINAL_LANGUAGE_VALUE)
-                    .addQueryParameter(QUERY_PARAM_CREDITS_LABEL, QUERY_PARAM_CREDITS_VALUE)
                     .addQueryParameter(QUERY_PARAM_APPEND_LABEL, QUERY_PARAM_APPEND_VALUE)
                     .build()
                 val newRequest = chain.request().newBuilder().url(url).build()

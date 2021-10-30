@@ -137,6 +137,7 @@
             android:layout_marginTop="@dimen/default_margin"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:visibility="gone"
             android:text="@string/streamings"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tvDescriptionText"
@@ -149,9 +150,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_text_to_title"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/tvStreaming"
+            app:layout_constraintBottom_toTopOf="@id/cbMyListMovies"
             app:layout_constraintStart_toStartOf="@id/tvStreaming"
-            tools:itemCount="4"
+            app:layout_constraintTop_toBottomOf="@id/tvStreaming"
+            app:layout_constraintVertical_bias="0.0"
+            tools:itemCount="1"
             tools:listitem="@layout/item_streaming" />
 
         <Button
