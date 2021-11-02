@@ -34,13 +34,13 @@
                 <com.facebook.shimmer.ShimmerFrameLayout
                     android:id="@+id/shimmerPopular"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvPopularRecycler">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="horizontal">
 
                         <include layout="@layout/data_placeholder"/>
@@ -54,8 +54,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/vgCardsListPopular"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
                 android:layout_marginEnd="20dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
@@ -88,13 +88,13 @@
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmerTopRated"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTopRatedRecycler">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <include layout="@layout/data_placeholder"/>
@@ -108,8 +108,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/vgCardsListTopRated"
                 android:layout_width="wrap_content"
+                android:visibility="invisible"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
@@ -141,13 +141,13 @@
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmerNowPlaying"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvNowPlayingRecycler">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <include layout="@layout/data_placeholder"/>
@@ -161,8 +161,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/vgCardsListNowPlaying"
                 android:layout_width="wrap_content"
+                android:visibility="invisible"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvNowPlayingRecycler"

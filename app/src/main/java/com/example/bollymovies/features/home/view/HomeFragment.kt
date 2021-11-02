@@ -16,11 +16,12 @@ import com.example.bollymovies.databinding.FragmentHomeBinding
 
 import com.example.bollymovies.features.home.viewmodel.HomeViewModel
 import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
+import com.example.bollymovies.model.Result
 import com.example.bollymovies.utils.Command
 import com.example.bollymovies.utils.ConstantsApp.Home.KEY_INTENT_MOVIE_ID
 
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(){
 
     private var binding: FragmentHomeBinding? = null
     private lateinit var viewModel: HomeViewModel
@@ -30,27 +31,27 @@ class HomeFragment : BaseFragment() {
 
 
     private val nowPlayingAdapter: HomeAdapter by lazy {
-        HomeAdapter { movie ->
+        HomeAdapter ({stopShimmer(it)}, {movie ->
             val intent = Intent(context, MovieDetailsActivity::class.java)
             intent.putExtra(KEY_INTENT_MOVIE_ID, movie?.id ?: -1)
             startActivity(intent)
         }
-    }
+    )}
 
     private val popularAdapter: HomeAdapter by lazy {
-        HomeAdapter { movie ->
+        HomeAdapter ({stopShimmer(it)},{ movie ->
             val intent = Intent(context, MovieDetailsActivity::class.java)
             intent.putExtra(KEY_INTENT_MOVIE_ID, movie?.id ?: -1)
             startActivity(intent)
-        }
+        })
     }
 
     private val topRatedAdapter: HomeAdapter by lazy {
-        HomeAdapter { movie ->
+        HomeAdapter ({stopShimmer(it)},{ movie ->
             val intent = Intent(context, MovieDetailsActivity::class.java)
             intent.putExtra(KEY_INTENT_MOVIE_ID, movie?.id ?: -1)
             startActivity(intent)
-        }
+        })
     }
 
 
@@ -99,13 +100,11 @@ class HomeFragment : BaseFragment() {
 
     private fun loadNowPlaying() {
         viewModel.nowPlayingPagedList?.observe(viewLifecycleOwner, { pagedList ->
-//            binding?.shimmerNowPlaying?.stopShimmer()
-//            binding?.shimmerNowPlaying?.visibility = View.GONE
-//            binding?.vgCardsListNowPlaying?.visibility = View.VISIBLE
+
             nowPlayingAdapter.currentList?.clear()
             nowPlayingAdapter.submitList(pagedList, null)
             nowPlayingAdapter.notifyDataSetChanged()
-            handler.postDelayed({ binding?.shimmerNowPlaying?.visibility = View.GONE },takeShimmerTime)
+//            handler.postDelayed({ binding?.shimmerNowPlaying?.visibility = View.GONE },takeShimmerTime)
 
 
         })
@@ -113,13 +112,11 @@ class HomeFragment : BaseFragment() {
 
     private fun loadPopular() {
         viewModel.popularPagedList?.observe(viewLifecycleOwner, { pagedList ->
-//            binding?.shimmerPopular?.stopShimmer()
-//            binding?.shimmerPopular?.visibility = View.GONE
-//            binding?.vgCardsListPopular?.visibility = View.VISIBLE
+
             popularAdapter.currentList?.clear()
             popularAdapter.submitList(pagedList)
             popularAdapter.notifyDataSetChanged()
-            handler.postDelayed({ binding?.shimmerPopular?.visibility = View.GONE },takeShimmerTime)
+//            handler.postDelayed({ binding?.shimmerPopular?.visibility = View.GONE },takeShimmerTime)
 
 
 
@@ -128,16 +125,30 @@ class HomeFragment : BaseFragment() {
 
     private fun loadTopRated() {
         viewModel.topRatedPagedList?.observe(viewLifecycleOwner, { pagedList ->
-//            binding?.shimmerTopRated?.stopShimmer()
-//            binding?.shimmerTopRated?.visibility = View.GONE
-//            binding?.vgCardsListTopRated?.visibility = View.VISIBLE
+
             topRatedAdapter.currentList?.clear()
             topRatedAdapter.submitList(pagedList)
             topRatedAdapter.notifyDataSetChanged()
-            handler.postDelayed({ binding?.shimmerTopRated?.visibility = View.GONE },takeShimmerTime)
 
 
         })
+    }
+
+    fun stopShimmer(movie: Result?){
+        binding?.let {
+            with(it) {
+                shimmerTopRated.stopShimmer()
+                vgCardsListTopRated.visibility = View.VISIBLE
+                vgCardsListPopular.visibility = View.VISIBLE
+                vgCardsListNowPlaying.visibility = View.VISIBLE
+                shimmerTopRated.visibility = View.INVISIBLE
+                shimmerPopular.stopShimmer()
+                shimmerPopular.visibility = View.INVISIBLE
+                shimmerNowPlaying.stopShimmer()
+                shimmerNowPlaying.visibility = View.INVISIBLE
+
+            }
+        }
     }
 
     override fun onDestroy() {
