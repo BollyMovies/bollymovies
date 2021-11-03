@@ -3,7 +3,6 @@ package com.example.bollymovies.base
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.bollymovies.utils.Command
 import com.example.bollymovies.utils.ResponseApi
 import kotlinx.coroutines.Dispatchers

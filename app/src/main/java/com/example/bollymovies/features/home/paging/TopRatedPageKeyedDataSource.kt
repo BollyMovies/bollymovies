@@ -52,7 +52,10 @@ class TopRatedPageKeyedDataSource(
         ) {
             is ResponseApi.Success -> {
                 val list = response.data as? TopRated
-                homeUseCase.setupTopRatedMoviesList(list)
+                homeUseCase.setupTopRatedMoviesList(list).filter {
+                    !it.overview.equals("")
+                    !it.poster_path.isNullOrBlank()
+                }
             }
             is ResponseApi.Error -> {
                 var bollyMoviesDb = BollyMoviesDataBase

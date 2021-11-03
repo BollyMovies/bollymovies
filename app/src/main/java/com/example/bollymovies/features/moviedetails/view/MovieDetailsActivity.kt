@@ -1,23 +1,12 @@
 package com.example.bollymovies.features.moviedetails.view
 
-import android.Manifest
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.content.pm.PackageManager.*
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.AttributeSet
 import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
+import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,8 +22,9 @@ import com.example.bollymovies.features.moviedetails.viewmodel.MovieDetailsViewM
 import com.example.bollymovies.model.Movie
 import com.example.bollymovies.utils.Command
 import com.example.bollymovies.utils.ConstantsApp.Home.KEY_INTENT_MOVIE_ID
-import com.google.android.datatransport.runtime.scheduling.SchedulingConfigModule_ConfigFactory.config
-import java.io.ByteArrayOutputStream
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
 
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -42,11 +32,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     lateinit var binding: ActivityMovieDetailsBinding
     private lateinit var viewModel: MovieDetailsViewModel
     private var movieId: Int? = null
-//    private var permissions = arrayOf(
-//        Manifest.permission.READ_EXTERNAL_STORAGE,
-//        Manifest.permission.WRITE_EXTERNAL_STORAGE
-//    )
-    private var image: Bitmap? = null
+    lateinit var movieFromId: Movie
     private var sharedTitle: String? = null
     private var overview: String? = null
     private var year: String? = null
@@ -70,7 +56,13 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
 
         binding.btnShare.setOnClickListener {
-//           this.image = getBitmapFromView(binding.ivMovieDetailsImage)
+            sharedTitle = binding.tvMovieName.text.toString()
+            overview = binding.tvDescriptionText.text.toString()
+            year = binding.tvYear.text.toString()
+            goToShare()
+        }
+
+        binding.tvShareLabel.setOnClickListener{
             sharedTitle = binding.tvMovieName.text.toString()
             overview = binding.tvDescriptionText.text.toString()
             year = binding.tvYear.text.toString()
@@ -98,20 +90,42 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         viewModel.onSuccessMovieById.observe(this, {
             setupData(it)
+            movieFromId = it
 
             val id = it.id
             val poster = it.poster_path
             val title = it.title
-            val movie = MoviesList(id, title, poster)
+            val movieFromList = MoviesList(id, title, poster)
             val watched = WatchedMoviesList(id, title, poster)
 
             binding.cbMyListMovies.setOnClickListener {
                 if (binding.cbMyListMovies.isChecked) {
-                    viewModel.saveMyListMovieDb(movie)
+                    viewModel.saveMyListMovieDb(movieFromList)
                 } else {
-                    viewModel.deleteMyListMovieDb(movie)
+                    viewModel.deleteMyListMovieDb(movieFromList)
                 }
             }
+
+            binding.tvMyListLabel.setOnClickListener{
+                if (binding.cbMyListMovies.isChecked){
+                    binding.cbMyListMovies.isChecked = false
+                    viewModel.deleteMyListMovieDb(movieFromList)
+                } else {
+                    binding.cbMyListMovies.isChecked = true
+                    viewModel.saveMyListMovieDb(movieFromList)
+                }
+            }
+
+            binding.tvWatchedMovies.setOnClickListener{
+                if (binding.cbWatchedMovies.isChecked){
+                    binding.cbWatchedMovies.isChecked = false
+                    viewModel.deleteWatchedMovieDb(watched)
+                } else {
+                    binding.cbWatchedMovies.isChecked = true
+                    viewModel.saveWatchedMovieDb(watched)
+                }
+            }
+
 
             binding.cbWatchedMovies.setOnClickListener {
                 if (binding.cbWatchedMovies.isChecked) {
@@ -121,13 +135,22 @@ class MovieDetailsActivity : AppCompatActivity() {
                 }
             }
 
+            binding.btTrailerFilmsSeries.setOnClickListener{
+                setupVideo(movieFromId)
+            }
+
             binding.vgStreaming.apply {
                 layoutManager =
                     LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = it.streaming?.results?.BR?.let { it1 ->
+                adapter = it.watch_providers?.results?.BR?.let { it1 ->
                     it1.flatrate?.let { it2 ->
                         StreamingAdapter(it2)
                     }
+                }
+                if (adapter?.itemCount != 0 && adapter?.itemCount != null){
+                    binding.tvStreaming.visibility = View.VISIBLE
+                } else {
+                    binding.tvStreaming.visibility = View.GONE
                 }
             }
         })
@@ -154,66 +177,6 @@ class MovieDetailsActivity : AppCompatActivity() {
         share.putExtra(Intent.EXTRA_TEXT, "Vi este filme no App BollyMovies e lembrei de você!\n\n$sharedTitle ($year)\n\n$overview")
         startActivity(Intent.createChooser(share, this.getString(R.string.txt_shared_title)))
     }
-//    private fun getBitmapFromView(view: ImageView): Bitmap? {
-//        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
-//        val canvas = Canvas(bitmap)
-//        view.draw(canvas)
-//        return bitmap
-//    }
-//
-//    private fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
-//        val bytes = ByteArrayOutputStream()
-//        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-//        val path =
-//            MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
-//        return Uri.parse(path)
-//    }
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (requestCode == 100) {
-//            when {
-//                grantResults.isNotEmpty()
-//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
-//                -> { goToShare() }
-//
-//                else -> {
-//                    val result1 =
-//                        ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-//                    if (result1 != PackageManager.PERMISSION_GRANTED) {
-//                        Toast.makeText(this, "Você negou o acesso à sua galeria", Toast.LENGTH_SHORT).show()
-//                    } else {
-//                        goToShare()
-//                    }
-//                }
-//            }
-//        }
-//        return
-//    }
-//
-//    private fun checkPermissions(){
-//        var result: Int
-//        val listPermissionsNeeded: MutableList<String> = ArrayList()
-//
-//        for (p in permissions) {
-//            result = ContextCompat.checkSelfPermission(this, p)
-//            if (result != PackageManager.PERMISSION_GRANTED) {
-//                listPermissionsNeeded.add(p)
-//            } else {
-//                goToShare()
-//            }
-//        }
-//        if (listPermissionsNeeded.isNotEmpty()) {
-//            ActivityCompat.requestPermissions(
-//                this,
-//                listPermissionsNeeded.toTypedArray(),
-//                100
-//            )
-//        }
-//    }
 
     private fun setupData(movie: Movie) {
         with(binding) {
@@ -231,10 +194,35 @@ class MovieDetailsActivity : AppCompatActivity() {
                     binding.ratingBarFilmsSeries.rating = (it / 2.0f).toFloat()
                     binding.tvCast.text =
                         movie.credits?.getCastName(context = this@MovieDetailsActivity)
+                    binding.tvDirector.text =
+                        movie.credits?.getDirectorName(this@MovieDetailsActivity)
                 }
             }
         }
     }
+
+    private fun setupVideo(movie: Movie){
+        if (movie.videos!!.results.isNotEmpty()) {
+            val youtubePlayerView = binding.youtubePlayerDetail
+            lifecycle.addObserver(youtubePlayerView)
+            val youtube = movie.videos.results.last()
+            binding.apply {
+                btTrailerFilmsSeries.isVisible = false
+                clYoutube.isVisible = true
+                youtubePlayerDetail.initialize(object :
+                    AbstractYouTubePlayerListener() {
+                    override fun onReady(youTubePlayer: YouTubePlayer) {
+                        youtube.key.let { key -> youTubePlayer.loadOrCueVideo(lifecycle, key, 0f) }
+                    }
+                })
+                youtubePlayerDetail.isFullScreen()
+            }
+        } else {
+            Toast.makeText(this, "Trailer não encontrado!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
 
     private fun textIsNotNull(text: String): String {
         if (text != "null") {

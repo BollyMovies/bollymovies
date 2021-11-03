@@ -20,8 +20,7 @@
             android:id="@+id/ivStreaming"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_icons8_aplicativo_de_desktop_netflix"/>
+            android:scaleType="centerCrop"/>
 
     </com.google.android.material.card.MaterialCardView>
 

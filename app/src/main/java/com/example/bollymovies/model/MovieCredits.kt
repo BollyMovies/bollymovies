@@ -8,6 +8,17 @@ data class MovieCredits(
     val crew: List<Crew>?,
     val id: Int
 ) {
+    fun getDirectorName(context: Context): String {
+        lateinit var directorName: String
+        val directorLabel: String = context.getString(R.string.director)
+        crew?.forEach {
+            if (it.job == "Director"){
+                directorName = it.name
+            }
+        }
+        return "$directorLabel $directorName"
+    }
+
     fun getCastName(context: Context): String {
         return if (cast?.size != 0 && cast?.size != null && cast.size >= 3) {
             val cast1 = cast.elementAt(0).name

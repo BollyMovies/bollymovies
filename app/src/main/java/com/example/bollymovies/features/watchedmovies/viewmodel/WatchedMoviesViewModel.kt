@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.bollymovies.base.BaseViewModel
 import com.example.bollymovies.database.MoviesList
 import com.example.bollymovies.database.WatchedMoviesList
-import com.example.bollymovies.datamodels.Movie
+
 import com.example.bollymovies.features.watchedmovies.usecase.WatchedMoviesUseCase
 import kotlinx.coroutines.launch
 

@@ -53,6 +53,7 @@ dependencies {
     implementation "com.airbnb.android:lottie:$lottieVersion"
     implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
     implementation 'com.rishabhharit.roundedimageview:RoundedImageView:0.8.4'
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
     //Android Core
     implementation 'androidx.appcompat:appcompat:1.3.1'
@@ -92,6 +93,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    //YoutubePlayerView from https://github.com/PierfrancescoSoffritti/android-youtube-player
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+    implementation 'com.vipulasri:ticketview:1.1.2'
 
     //Tests
     testImplementation 'junit:junit:4.13.2'

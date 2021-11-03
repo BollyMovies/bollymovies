@@ -52,7 +52,11 @@ class PopularPageKeyedDataSource(
         ) {
             is ResponseApi.Success -> {
                 val list = response.data as? Popular
-                homeUseCase.setupPopularMoviesList(list)
+                homeUseCase.setupPopularMoviesList(list).filter {
+                    !it.overview.equals("")
+                    !it.poster_path.isNullOrBlank()
+
+                }
             }
             is ResponseApi.Error -> {
                 var bollyMoviesDb = BollyMoviesDataBase

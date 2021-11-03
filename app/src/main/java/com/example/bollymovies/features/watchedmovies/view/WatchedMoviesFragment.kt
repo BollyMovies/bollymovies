@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bollymovies.adapter.WatchedMoviesAdapter
 import com.example.bollymovies.database.WatchedMoviesList
 import com.example.bollymovies.databinding.FragmentWatchedMoviesBinding
-import com.example.bollymovies.datamodels.Movie
+
 import com.example.bollymovies.features.watchedmovies.viewmodel.WatchedMoviesViewModel
 import com.example.bollymovies.utils.Command
 import com.example.bollymovies.utils.GridSpacingItemDecoration
