@@ -2,7 +2,6 @@ package com.example.bollymovies.features.moviedetails.view
 
 import android.content.Intent
 import android.content.pm.PackageManager.*
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -25,7 +24,6 @@ import com.example.bollymovies.utils.Command
 import com.example.bollymovies.utils.ConstantsApp.Home.KEY_INTENT_MOVIE_ID
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
 
 
@@ -35,11 +33,6 @@ class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var viewModel: MovieDetailsViewModel
     private var movieId: Int? = null
     lateinit var movieFromId: Movie
-//    private var permissions = arrayOf(
-//        Manifest.permission.READ_EXTERNAL_STORAGE,
-//        Manifest.permission.WRITE_EXTERNAL_STORAGE
-//    )
-    private var image: Bitmap? = null
     private var sharedTitle: String? = null
     private var overview: String? = null
     private var year: String? = null
@@ -66,7 +59,6 @@ class MovieDetailsActivity : AppCompatActivity() {
             sharedTitle = binding.tvMovieName.text.toString()
             overview = binding.tvDescriptionText.text.toString()
             year = binding.tvYear.text.toString()
-//           this.image = getBitmapFromView(binding.ivMovieDetailsImage)
             goToShare()
         }
 
@@ -185,66 +177,6 @@ class MovieDetailsActivity : AppCompatActivity() {
         share.putExtra(Intent.EXTRA_TEXT, "Vi este filme no App BollyMovies e lembrei de você!\n\n$sharedTitle ($year)\n\n$overview")
         startActivity(Intent.createChooser(share, this.getString(R.string.txt_shared_title)))
     }
-//    private fun getBitmapFromView(view: ImageView): Bitmap? {
-//        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
-//        val canvas = Canvas(bitmap)
-//        view.draw(canvas)
-//        return bitmap
-//    }
-//
-//    private fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
-//        val bytes = ByteArrayOutputStream()
-//        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-//        val path =
-//            MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
-//        return Uri.parse(path)
-//    }
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (requestCode == 100) {
-//            when {
-//                grantResults.isNotEmpty()
-//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
-//                -> { goToShare() }
-//
-//                else -> {
-//                    val result1 =
-//                        ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-//                    if (result1 != PackageManager.PERMISSION_GRANTED) {
-//                        Toast.makeText(this, "Você negou o acesso à sua galeria", Toast.LENGTH_SHORT).show()
-//                    } else {
-//                        goToShare()
-//                    }
-//                }
-//            }
-//        }
-//        return
-//    }
-//
-//    private fun checkPermissions(){
-//        var result: Int
-//        val listPermissionsNeeded: MutableList<String> = ArrayList()
-//
-//        for (p in permissions) {
-//            result = ContextCompat.checkSelfPermission(this, p)
-//            if (result != PackageManager.PERMISSION_GRANTED) {
-//                listPermissionsNeeded.add(p)
-//            } else {
-//                goToShare()
-//            }
-//        }
-//        if (listPermissionsNeeded.isNotEmpty()) {
-//            ActivityCompat.requestPermissions(
-//                this,
-//                listPermissionsNeeded.toTypedArray(),
-//                100
-//            )
-//        }
-//    }
 
     private fun setupData(movie: Movie) {
         with(binding) {

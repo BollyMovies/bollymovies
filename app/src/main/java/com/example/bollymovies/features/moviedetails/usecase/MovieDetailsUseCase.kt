@@ -4,10 +4,8 @@ import android.app.Application
 import com.example.bollymovies.database.MoviesList
 import com.example.bollymovies.database.WatchedMoviesList
 import com.example.bollymovies.extensions.getFullImageUrl
-import com.example.bollymovies.extensions.getFullYoutubeUrl
 import com.example.bollymovies.features.moviedetails.repository.MovieDetailsRepository
 import com.example.bollymovies.model.Movie
-import com.example.bollymovies.model.ResultVideos
 import com.example.bollymovies.utils.ResponseApi
 
 class MovieDetailsUseCase(
@@ -24,9 +22,6 @@ class MovieDetailsUseCase(
                 movie?.poster_path = movie?.poster_path?.getFullImageUrl()
                 movie?.watch_providers?.results?.BR?.flatrate?.forEach {
                     it.logo_path = it.logo_path.getFullImageUrl()
-                }
-                movie?.videos?.results?.map{
-                    it.key = it.key.getFullYoutubeUrl()
                 }
                 return ResponseApi.Success(movie)
             }
