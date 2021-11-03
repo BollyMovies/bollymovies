@@ -104,7 +104,6 @@ class HomeFragment : BaseFragment(){
             nowPlayingAdapter.currentList?.clear()
             nowPlayingAdapter.submitList(pagedList, null)
             nowPlayingAdapter.notifyDataSetChanged()
-//            handler.postDelayed({ binding?.shimmerNowPlaying?.visibility = View.GONE },takeShimmerTime)
 
 
         })
@@ -116,7 +115,6 @@ class HomeFragment : BaseFragment(){
             popularAdapter.currentList?.clear()
             popularAdapter.submitList(pagedList)
             popularAdapter.notifyDataSetChanged()
-//            handler.postDelayed({ binding?.shimmerPopular?.visibility = View.GONE },takeShimmerTime)
 
 
 

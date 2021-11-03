@@ -55,7 +55,7 @@ class NowPlayingPageKeyedDataSource(
             is ResponseApi.Success -> {
                 val list = response.data as? NowPlaying
                 homeUseCase.setupNowPlayingMoviesList(list).filter {
-                    !it.overview.equals("")
+                    !it.overview.isNullOrBlank()
                     !it.poster_path.isNullOrBlank()
 
                 }

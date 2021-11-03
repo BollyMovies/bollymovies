@@ -25,6 +25,8 @@ import com.example.bollymovies.utils.Command
 import com.example.bollymovies.utils.ConstantsApp.Home.KEY_INTENT_MOVIE_ID
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
 
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -269,13 +271,16 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     private fun setupVideo(movie: Movie){
         if (movie.videos!!.results.isNotEmpty()) {
+            val youtubePlayerView = binding.youtubePlayerDetail
+            lifecycle.addObserver(youtubePlayerView)
             val youtube = movie.videos.results.last()
             binding.apply {
+                btTrailerFilmsSeries.isVisible = false
                 clYoutube.isVisible = true
-                youtubePlayerDetail.addYouTubePlayerListener(object :
+                youtubePlayerDetail.initialize(object :
                     AbstractYouTubePlayerListener() {
                     override fun onReady(youTubePlayer: YouTubePlayer) {
-                        youtube.key.let { it1 -> youTubePlayer.loadVideo(it1, 0f) }
+                        youtube.key.let { key -> youTubePlayer.loadOrCueVideo(lifecycle, key, 0f) }
                     }
                 })
                 youtubePlayerDetail.isFullScreen()

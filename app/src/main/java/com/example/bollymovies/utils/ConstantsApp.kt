@@ -9,8 +9,6 @@ class ConstantsApp {
         const val QUERY_PARAM_LANGUAGE_VALUE = "pt-BR"
         const val QUERY_PARAM_ORIGINAL_LANGUAGE_LABEL = "with_original_language"
         const val QUERY_PARAM_ORIGINAL_LANGUAGE_VALUE = "hi"
-        const val QUERY_PARAM_CREDITS_LABEL = "append_to_response"
-        const val QUERY_PARAM_CREDITS_VALUE = "credits"
         const val QUERY_PARAM_SORT_BY_LABEL = "sort_by"
         const val QUERY_PARAM_SORT_BY_VALUE = "release_date.desc"
         const val QUERY_PARAM_APPEND_LABEL = "append_to_response"

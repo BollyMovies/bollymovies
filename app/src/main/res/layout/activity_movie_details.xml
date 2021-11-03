@@ -158,6 +158,7 @@
             tools:itemCount="1"
             tools:listitem="@layout/item_streaming" />
 
+
         <Button
             android:id="@+id/btTrailerFilmsSeries"
             android:layout_width="0dp"
@@ -172,7 +173,6 @@
             app:layout_constraintTop_toBottomOf="@id/tvDirector"
             app:layout_constraintEnd_toEndOf="@id/tvDirector"
             app:layout_constraintBottom_toTopOf="@id/tvDescriptionTitle"/>
-
 
         <TextView
             android:id="@+id/tvDescriptionTitle"
@@ -257,11 +257,22 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_youtube"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:visibility="gone"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/primary"
-            android:layout_gravity="center">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/btn_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_lock_24"
+                app:layout_constraintBottom_toTopOf="@id/youtubePlayerDetail"
+                app:layout_constraintStart_toStartOf="@id/youtubePlayerDetail"/>
 
                 <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/youtubePlayerDetail"
