@@ -4,11 +4,10 @@ import android.app.Application
 import com.example.bollymovies.extensions.getFullImageUrl
 import com.example.bollymovies.features.home.repository.HomeRepository
 import com.example.bollymovies.model.*
-import com.example.bollymovies.utils.ResponseApi
 
 
 class HomeUseCase(
-    private val application: Application
+    application: Application
 ) {
 
     private val homeRepository = HomeRepository(application)

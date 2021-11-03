@@ -46,7 +46,7 @@ class StreamingAdapter(
             Glide.with(itemView.context)
                 .load(watchProvider?.logo_path)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_icons8_aplicativo_de_desktop_netflix)
+                .placeholder(R.drawable.logo_bolly)
                 .into(binding.ivStreaming)
         }
     }

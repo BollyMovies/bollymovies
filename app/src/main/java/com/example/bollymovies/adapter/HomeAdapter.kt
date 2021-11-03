@@ -9,11 +9,14 @@ import com.example.bollymovies.databinding.MainCardItemBinding
 import com.example.bollymovies.model.Result
 import com.bumptech.glide.Glide
 import com.example.bollymovies.R
+import org.jetbrains.annotations.Contract
 
 
 class HomeAdapter(
+    private val stopShimmer: (movie: Result?) -> Unit,
     private val onClickListener: (movie: Result?) -> Unit
 ) : PagedListAdapter<Result, HomeAdapter.ViewHolder>(Result.DIFF_CALLBACK) {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = MainCardItemBinding
@@ -23,7 +26,7 @@ class HomeAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), onClickListener)
+        holder.bind(getItem(position), onClickListener, stopShimmer)
 
     }
 
@@ -38,7 +41,8 @@ class HomeAdapter(
 
         fun bind(
             movie: Result?,
-            onClickListener: (movie: Result) -> Unit
+            onClickListener: (movie: Result) -> Unit,
+            stopShimmer: (movie: Result?) -> Unit
         ) {
             with(binding) {
                 movie?.let {
@@ -53,7 +57,7 @@ class HomeAdapter(
                         .into(ivMovieImage)
                 }
             }
-
+                stopShimmer(movie)
         }
     }
 

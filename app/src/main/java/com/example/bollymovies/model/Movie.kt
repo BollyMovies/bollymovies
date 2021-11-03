@@ -29,5 +29,5 @@ data class Movie(
     val vote_count: Int? = null,
     val videos: Videos? = null,
     @SerializedName("watch/providers")
-    val streaming: Streaming? = null
+    val watch_providers: Streaming? = null
 )

@@ -5,8 +5,6 @@ import com.example.bollymovies.utils.ConstantsApp.Api.API_TOKEN
 import com.example.bollymovies.utils.ConstantsApp.Api.API_TOKEN_KEY
 import com.example.bollymovies.utils.ConstantsApp.Api.QUERY_PARAM_APPEND_LABEL
 import com.example.bollymovies.utils.ConstantsApp.Api.QUERY_PARAM_APPEND_VALUE
-import com.example.bollymovies.utils.ConstantsApp.Api.QUERY_PARAM_CREDITS_LABEL
-import com.example.bollymovies.utils.ConstantsApp.Api.QUERY_PARAM_CREDITS_VALUE
 import com.example.bollymovies.utils.ConstantsApp.Api.QUERY_PARAM_LANGUAGE_KEY
 import com.example.bollymovies.utils.ConstantsApp.Api.QUERY_PARAM_LANGUAGE_VALUE
 import com.example.bollymovies.utils.ConstantsApp.Api.QUERY_PARAM_ORIGINAL_LANGUAGE_LABEL
@@ -82,7 +80,6 @@ object ApiService {
                     .addQueryParameter(API_TOKEN_KEY, API_TOKEN)
                     .addQueryParameter(QUERY_PARAM_LANGUAGE_KEY, QUERY_PARAM_LANGUAGE_VALUE)
                     .addQueryParameter(QUERY_PARAM_ORIGINAL_LANGUAGE_LABEL, QUERY_PARAM_ORIGINAL_LANGUAGE_VALUE)
-                    .addQueryParameter(QUERY_PARAM_CREDITS_LABEL, QUERY_PARAM_CREDITS_VALUE)
                     .addQueryParameter(QUERY_PARAM_APPEND_LABEL, QUERY_PARAM_APPEND_VALUE)
                     .build()
                 val newRequest = chain.request().newBuilder().url(url).build()

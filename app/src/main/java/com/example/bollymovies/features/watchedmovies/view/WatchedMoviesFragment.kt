@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bollymovies.adapter.WatchedMoviesAdapter
 import com.example.bollymovies.database.WatchedMoviesList
 import com.example.bollymovies.databinding.FragmentWatchedMoviesBinding
-import com.example.bollymovies.datamodels.Movie
+
 import com.example.bollymovies.features.watchedmovies.viewmodel.WatchedMoviesViewModel
 import com.example.bollymovies.utils.Command
 import com.example.bollymovies.utils.GridSpacingItemDecoration
@@ -30,6 +30,7 @@ class WatchedMoviesFragment : Fragment() {
         viewModel = ViewModelProvider(this)[WatchedMoviesViewModel::class.java]
         viewModel.command = command
         viewModel.getWatchedMoviesDb()
+
 
     }
 
@@ -72,13 +73,8 @@ class WatchedMoviesFragment : Fragment() {
         return binding?.root
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        setupObservable()
-//    }
-
-    override fun onResume() {
-        super.onResume()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupObservable()
     }
 

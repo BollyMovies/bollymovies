@@ -2,55 +2,56 @@ package com.example.bollymovies.features.home.view
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bollymovies.adapter.HomeAdapter
 import com.example.bollymovies.base.BaseFragment
 import com.example.bollymovies.databinding.FragmentHomeBinding
-import com.example.bollymovies.datamodels.Movie
+
 import com.example.bollymovies.features.home.viewmodel.HomeViewModel
 import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
 import com.example.bollymovies.model.Result
 import com.example.bollymovies.utils.Command
 import com.example.bollymovies.utils.ConstantsApp.Home.KEY_INTENT_MOVIE_ID
-import com.example.bollymovies.utils.onMovieClickListener
-import com.google.android.material.snackbar.Snackbar
 
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(){
 
     private var binding: FragmentHomeBinding? = null
     private lateinit var viewModel: HomeViewModel
+    private val takeShimmerTime = 1500L
+    private lateinit var handler: Handler
+
 
 
     private val nowPlayingAdapter: HomeAdapter by lazy {
-        HomeAdapter { movie ->
+        HomeAdapter ({stopShimmer(it)}, {movie ->
             val intent = Intent(context, MovieDetailsActivity::class.java)
             intent.putExtra(KEY_INTENT_MOVIE_ID, movie?.id ?: -1)
             startActivity(intent)
         }
-    }
+    )}
 
     private val popularAdapter: HomeAdapter by lazy {
-        HomeAdapter { movie ->
+        HomeAdapter ({stopShimmer(it)},{ movie ->
             val intent = Intent(context, MovieDetailsActivity::class.java)
             intent.putExtra(KEY_INTENT_MOVIE_ID, movie?.id ?: -1)
             startActivity(intent)
-        }
+        })
     }
 
     private val topRatedAdapter: HomeAdapter by lazy {
-        HomeAdapter { movie ->
+        HomeAdapter ({stopShimmer(it)},{ movie ->
             val intent = Intent(context, MovieDetailsActivity::class.java)
             intent.putExtra(KEY_INTENT_MOVIE_ID, movie?.id ?: -1)
             startActivity(intent)
-        }
+        })
     }
 
 
@@ -69,6 +70,8 @@ class HomeFragment : BaseFragment() {
             viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
             viewModel.command = command
 
+            handler = Handler(Looper.getMainLooper())
+
             setupRecyclerViews()
             loadNowPlaying()
             loadPopular()
@@ -78,36 +81,72 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setupRecyclerViews() {
-        binding?.vgCardsListLancamentos?.apply {
+        binding?.vgCardsListNowPlaying?.apply {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             adapter = nowPlayingAdapter
+            binding?.shimmerNowPlaying?.startShimmer()
         }
         binding?.vgCardsListPopular?.apply {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             adapter = popularAdapter
+            binding?.shimmerPopular?.startShimmer()
         }
         binding?.vgCardsListTopRated?.apply {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             adapter = topRatedAdapter
+            binding?.shimmerTopRated?.startShimmer()
         }
     }
 
     private fun loadNowPlaying() {
         viewModel.nowPlayingPagedList?.observe(viewLifecycleOwner, { pagedList ->
-            nowPlayingAdapter.submitList(pagedList)
+
+            nowPlayingAdapter.currentList?.clear()
+            nowPlayingAdapter.submitList(pagedList, null)
+            nowPlayingAdapter.notifyDataSetChanged()
+
+
         })
     }
 
     private fun loadPopular() {
         viewModel.popularPagedList?.observe(viewLifecycleOwner, { pagedList ->
+
+            popularAdapter.currentList?.clear()
             popularAdapter.submitList(pagedList)
+            popularAdapter.notifyDataSetChanged()
+
+
+
         })
     }
 
     private fun loadTopRated() {
         viewModel.topRatedPagedList?.observe(viewLifecycleOwner, { pagedList ->
+
+            topRatedAdapter.currentList?.clear()
             topRatedAdapter.submitList(pagedList)
+            topRatedAdapter.notifyDataSetChanged()
+
+
         })
+    }
+
+    fun stopShimmer(movie: Result?){
+        binding?.let {
+            with(it) {
+                shimmerTopRated.stopShimmer()
+                vgCardsListTopRated.visibility = View.VISIBLE
+                vgCardsListPopular.visibility = View.VISIBLE
+                vgCardsListNowPlaying.visibility = View.VISIBLE
+                shimmerTopRated.visibility = View.INVISIBLE
+                shimmerPopular.stopShimmer()
+                shimmerPopular.visibility = View.INVISIBLE
+                shimmerNowPlaying.stopShimmer()
+                shimmerNowPlaying.visibility = View.INVISIBLE
+
+            }
+        }
     }
 
     override fun onDestroy() {
