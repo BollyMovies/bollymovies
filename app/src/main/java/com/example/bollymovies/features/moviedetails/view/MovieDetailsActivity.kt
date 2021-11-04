@@ -22,9 +22,11 @@ import com.example.bollymovies.features.moviedetails.viewmodel.MovieDetailsViewM
 import com.example.bollymovies.model.Movie
 import com.example.bollymovies.utils.Command
 import com.example.bollymovies.utils.ConstantsApp.Home.KEY_INTENT_MOVIE_ID
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
+import okhttp3.internal.notify
 
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -215,17 +217,20 @@ class MovieDetailsActivity : AppCompatActivity() {
             binding.apply {
                 btTrailerFilmsSeries.isVisible = false
                 clYoutube.isVisible = true
-                btnClose.setOnClickListener{
-                    clYoutube.isVisible = false
-                    btTrailerFilmsSeries.isVisible = true
-                }
-                youtubePlayerDetail.initialize(object :
+
+                youtubePlayerView.initialize(object :
                     AbstractYouTubePlayerListener() {
                     override fun onReady(youTubePlayer: YouTubePlayer) {
                         youtube.key.let { key -> youTubePlayer.loadOrCueVideo(lifecycle, key, 0f) }
+                        btnClose.setOnClickListener{
+                            clYoutube.isVisible = false
+                            btTrailerFilmsSeries.isVisible = true
+                            youTubePlayer.pause()
+                            youTubePlayer.notify()
+                        }
                     }
                 })
-                youtubePlayerDetail.isFullScreen()
+                youtubePlayerView.isFullScreen()
             }
     }
 
