@@ -15,7 +15,7 @@ class MovieDetailsUseCase(
     private val movieDetailsRepository = MovieDetailsRepository(application)
 
     suspend fun getMovieById(movieId: Int?): ResponseApi {
-        return when(val responseApi = movieDetailsRepository.getMovieById(movieId)) {
+        return when (val responseApi = movieDetailsRepository.getMovieById(movieId)) {
             is ResponseApi.Success -> {
                 val movie = responseApi.data as? Movie
                 movie?.backdrop_path = movie?.backdrop_path?.getFullImageUrl()
@@ -51,7 +51,6 @@ class MovieDetailsUseCase(
 
     suspend fun deleteWatchedMovieDb(movie: WatchedMoviesList) =
         movieDetailsRepository.deleteWatchedMovieDb(movie)
-
 
 
 }

@@ -62,7 +62,7 @@ class MovieDetailsActivity : AppCompatActivity() {
             goToShare()
         }
 
-        binding.tvShareLabel.setOnClickListener{
+        binding.tvShareLabel.setOnClickListener {
             sharedTitle = binding.tvMovieName.text.toString()
             overview = binding.tvDescriptionText.text.toString()
             year = binding.tvYear.text.toString()
@@ -98,6 +98,10 @@ class MovieDetailsActivity : AppCompatActivity() {
             val movieFromList = MoviesList(id, title, poster)
             val watched = WatchedMoviesList(id, title, poster)
 
+            if (it.videos!!.results.isNotEmpty()){
+                binding.btTrailerFilmsSeries.isVisible = true
+                }
+
             binding.cbMyListMovies.setOnClickListener {
                 if (binding.cbMyListMovies.isChecked) {
                     viewModel.saveMyListMovieDb(movieFromList)
@@ -106,8 +110,8 @@ class MovieDetailsActivity : AppCompatActivity() {
                 }
             }
 
-            binding.tvMyListLabel.setOnClickListener{
-                if (binding.cbMyListMovies.isChecked){
+            binding.tvMyListLabel.setOnClickListener {
+                if (binding.cbMyListMovies.isChecked) {
                     binding.cbMyListMovies.isChecked = false
                     viewModel.deleteMyListMovieDb(movieFromList)
                 } else {
@@ -116,8 +120,8 @@ class MovieDetailsActivity : AppCompatActivity() {
                 }
             }
 
-            binding.tvWatchedMovies.setOnClickListener{
-                if (binding.cbWatchedMovies.isChecked){
+            binding.tvWatchedMovies.setOnClickListener {
+                if (binding.cbWatchedMovies.isChecked) {
                     binding.cbWatchedMovies.isChecked = false
                     viewModel.deleteWatchedMovieDb(watched)
                 } else {
@@ -135,7 +139,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                 }
             }
 
-            binding.btTrailerFilmsSeries.setOnClickListener{
+            binding.btTrailerFilmsSeries.setOnClickListener {
                 setupVideo(movieFromId)
             }
 
@@ -147,7 +151,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                         StreamingAdapter(it2)
                     }
                 }
-                if (adapter?.itemCount != 0 && adapter?.itemCount != null){
+                if (adapter?.itemCount != 0 && adapter?.itemCount != null) {
                     binding.tvStreaming.visibility = View.VISIBLE
                 } else {
                     binding.tvStreaming.visibility = View.GONE
@@ -174,7 +178,10 @@ class MovieDetailsActivity : AppCompatActivity() {
     private fun goToShare() {
         val share = Intent(Intent.ACTION_SEND)
         share.type = "text/plain"
-        share.putExtra(Intent.EXTRA_TEXT, "Vi este filme no App BollyMovies e lembrei de você!\n\n$sharedTitle ($year)\n\n$overview")
+        share.putExtra(
+            Intent.EXTRA_TEXT,
+            "Vi este filme no App BollyMovies e lembrei de você!\n\n$sharedTitle ($year)\n\n$overview"
+        )
         startActivity(Intent.createChooser(share, this.getString(R.string.txt_shared_title)))
     }
 
@@ -201,14 +208,17 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupVideo(movie: Movie){
-        if (movie.videos!!.results.isNotEmpty()) {
+    private fun setupVideo(movie: Movie) {
             val youtubePlayerView = binding.youtubePlayerDetail
             lifecycle.addObserver(youtubePlayerView)
-            val youtube = movie.videos.results.last()
+            val youtube = movie.videos!!.results.last()
             binding.apply {
                 btTrailerFilmsSeries.isVisible = false
                 clYoutube.isVisible = true
+                btnClose.setOnClickListener{
+                    clYoutube.isVisible = false
+                    btTrailerFilmsSeries.isVisible = true
+                }
                 youtubePlayerDetail.initialize(object :
                     AbstractYouTubePlayerListener() {
                     override fun onReady(youTubePlayer: YouTubePlayer) {
@@ -217,11 +227,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                 })
                 youtubePlayerDetail.isFullScreen()
             }
-        } else {
-            Toast.makeText(this, "Trailer não encontrado!", Toast.LENGTH_SHORT).show()
-        }
     }
-
 
 
     private fun textIsNotNull(text: String): String {
