@@ -17,7 +17,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tvWatchedMovies"
+                android:id="@+id/tvMyListLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/main_card_item"
                 tools:itemCount="3"
-                app:layout_constraintTop_toBottomOf="@id/tvWatchedMovies"/>
+                app:layout_constraintTop_toBottomOf="@id/tvMyListLabel"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 

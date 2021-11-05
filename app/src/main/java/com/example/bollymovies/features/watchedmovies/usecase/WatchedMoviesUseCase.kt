@@ -1,13 +1,14 @@
 package com.example.bollymovies.features.watchedmovies.usecase
 
-import com.example.bollymovies.datamodels.Movie
+import android.app.Application
+
 import com.example.bollymovies.features.watchedmovies.repository.WatchedMoviesRepository
 
-class WatchedMoviesUseCase {
-    val watchedMoviesRepository = WatchedMoviesRepository()
+class WatchedMoviesUseCase(
+    private val application: Application
+) {
+    val watchedMoviesRepository = WatchedMoviesRepository(application)
 
-    fun buscarFilmes(): List<Movie> {
-        val lista = watchedMoviesRepository.getFakeData()
-        return lista
-    }
+    suspend fun getWatchedMoviesDb() =
+        watchedMoviesRepository.getWatchedMoviesDb()
 }

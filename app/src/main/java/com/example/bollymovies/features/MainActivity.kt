@@ -9,8 +9,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.bollymovies.R
 import com.example.bollymovies.databinding.ActivityMainBinding
-import com.example.bollymovies.features.mylist.view.MyListFragment
-import com.example.bollymovies.features.usersettings.view.UserSettingsActivity
+import com.example.bollymovies.features.login.view.LoginActivity
+import com.example.bollymovies.features.usersettings.UserSettingsActivity
 
 class MainActivity : AppCompatActivity() {
 

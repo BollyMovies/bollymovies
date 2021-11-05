@@ -1,17 +1,16 @@
 package com.example.bollymovies.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.bollymovies.R
 import com.example.bollymovies.databinding.ItemStreamingBinding
-import com.example.bollymovies.model.Streaming
-import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
+import com.example.bollymovies.model.Flatrate
 
 class StreamingAdapter(
-    private val streamingList: List<Streaming>
+    private val streamingList: List<Flatrate>,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,17 +36,14 @@ class StreamingAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            stream: Streaming,
+            watchProvider: Flatrate?
         ) {
-            with(binding) {
-                ivStreaming.setImageResource(stream.capa)
-            }
+            Glide.with(itemView.context)
+                .load(watchProvider?.logo_path)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.logo_bolly)
+                .into(binding.ivStreaming)
         }
-    }
-
-    fun onClick(v: View?) {
-        val intent = Intent(v?.context, MovieDetailsActivity::class.java)
-        v?.context?.let { ContextCompat.startActivity(it, intent, null) }
     }
 
     companion object {
