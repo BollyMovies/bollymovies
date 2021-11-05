@@ -6,7 +6,7 @@ import androidx.room.*
 interface MoviesListDao {
 
     @Query("SELECT * FROM list_movies")
-    suspend fun getAllFavorites(): List<MoviesList>
+    suspend fun getAllFavorites(): MutableList<MoviesList>
 
     @Query("SELECT * FROM list_movies WHERE id = :Id")
     suspend fun loadFavoritesById(Id: Int): List<MoviesList>

@@ -27,6 +27,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
 import okhttp3.internal.notify
+import okhttp3.internal.wait
 
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -217,16 +218,13 @@ class MovieDetailsActivity : AppCompatActivity() {
             binding.apply {
                 btTrailerFilmsSeries.isVisible = false
                 clYoutube.isVisible = true
-
                 youtubePlayerView.initialize(object :
                     AbstractYouTubePlayerListener() {
                     override fun onReady(youTubePlayer: YouTubePlayer) {
                         youtube.key.let { key -> youTubePlayer.loadOrCueVideo(lifecycle, key, 0f) }
                         btnClose.setOnClickListener{
                             clYoutube.isVisible = false
-                            btTrailerFilmsSeries.isVisible = true
                             youTubePlayer.pause()
-                            youTubePlayer.notify()
                         }
                     }
                 })

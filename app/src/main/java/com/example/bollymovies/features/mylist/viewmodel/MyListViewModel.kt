@@ -3,7 +3,6 @@ package com.example.bollymovies.features.mylist.viewmodel
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bollymovies.base.BaseViewModel
 import com.example.bollymovies.database.MoviesList
@@ -16,14 +15,14 @@ class MyListViewModel(
 ) : BaseViewModel(application) {
     private val myListUseCase = MyListUseCase(application)
 
-    private val _onSucessMyListFromDb: MutableLiveData<List<MoviesList>> = MutableLiveData()
-    val onSucessMyListFromDb: LiveData<List<MoviesList>>
-        get() = _onSucessMyListFromDb
+    private val _onSuccessMyListFromDb: MutableLiveData<MutableList<MoviesList>> = MutableLiveData()
+    val onSuccessMyListFromDb: LiveData<MutableList<MoviesList>>
+        get() = _onSuccessMyListFromDb
 
     fun getMyListMoviesDb() {
         viewModelScope.launch {
             val myListMovies = myListUseCase.getMyListMoviesDb()
-            _onSucessMyListFromDb.postValue(myListMovies)
+            _onSuccessMyListFromDb.postValue(myListMovies)
         }
     }
 }
