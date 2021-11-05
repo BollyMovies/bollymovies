@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/primary">
+    android:background="@color/primary"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,93 +13,98 @@
         android:orientation="vertical"
         tools:context=".view.fragment.HomeFragment">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/containerPopular"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tvPopularRecycler"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/title_popular"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/shimmerPopular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvPopularRecycler">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <include layout="@layout/data_placeholder"/>
-                        <include layout="@layout/data_placeholder"/>
-                        <include layout="@layout/data_placeholder"/>
-
-                    </LinearLayout>
-
-                </com.facebook.shimmer.ShimmerFrameLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/vgCardsListPopular"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:visibility="invisible"
-                android:layout_marginEnd="20dp"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPopularRecycler"
-                tools:itemCount="1"
-                tools:listitem="@layout/main_card_item"
-                tools:orientation="horizontal"
-                />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvPopularRecycler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/title_popular"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/containerTopRated"
+            android:id="@+id/containerPopular"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tvTopRatedRecycler"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/title_top_rated"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
             <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmerTopRated"
+                android:id="@+id/shimmerPopular"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTopRatedRecycler">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <include layout="@layout/data_placeholder"/>
-                    <include layout="@layout/data_placeholder"/>
-                    <include layout="@layout/data_placeholder"/>
+                    <include layout="@layout/data_placeholder" />
+
+                    <include layout="@layout/data_placeholder" />
+
+                    <include layout="@layout/data_placeholder" />
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/vgCardsListPopular"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/shimmerPopular"
+                tools:itemCount="1"
+                tools:listitem="@layout/main_card_item"
+                tools:orientation="horizontal" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvTopRatedRecycler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/title_top_rated"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/containerTopRated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerTopRated"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <include layout="@layout/data_placeholder" />
+
+                    <include layout="@layout/data_placeholder" />
+
+                    <include layout="@layout/data_placeholder" />
 
                 </LinearLayout>
 
@@ -108,51 +113,53 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/vgCardsListTopRated"
                 android:layout_width="wrap_content"
-                android:visibility="invisible"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:orientation="horizontal"
+                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTopRatedRecycler"
+                app:layout_constraintTop_toTopOf="@id/shimmerTopRated"
                 tools:itemCount="1"
                 tools:listitem="@layout/main_card_item"
                 tools:orientation="horizontal" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <TextView
+            android:id="@+id/tvNowPlayingRecycler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/title_nowPlaying"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/containerNowPlaying"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tvNowPlayingRecycler"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/title_nowPlaying"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmerNowPlaying"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvNowPlayingRecycler">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <include layout="@layout/data_placeholder"/>
-                    <include layout="@layout/data_placeholder"/>
-                    <include layout="@layout/data_placeholder"/>
+                    <include layout="@layout/data_placeholder" />
+
+                    <include layout="@layout/data_placeholder" />
+
+                    <include layout="@layout/data_placeholder" />
 
                 </LinearLayout>
 
@@ -161,11 +168,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/vgCardsListNowPlaying"
                 android:layout_width="wrap_content"
-                android:visibility="invisible"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvNowPlayingRecycler"
+                app:layout_constraintTop_toTopOf="@id/shimmerNowPlaying"
                 tools:itemCount="1"
                 tools:listitem="@layout/main_card_item"
                 tools:orientation="horizontal" />

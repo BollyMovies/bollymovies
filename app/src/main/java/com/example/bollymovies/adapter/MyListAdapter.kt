@@ -13,7 +13,7 @@ import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
 import com.example.bollymovies.utils.ConstantsApp
 
 class MyListAdapter(
-    private val myList: List<MoviesList>
+    private val myList: MutableList<MoviesList>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

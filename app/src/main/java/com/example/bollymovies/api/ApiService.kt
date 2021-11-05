@@ -55,7 +55,7 @@ object ApiService {
                 val url = chain.request().url.newBuilder()
                     .addQueryParameter(API_TOKEN_KEY, API_TOKEN)
                     .addQueryParameter(QUERY_PARAM_LANGUAGE_KEY, QUERY_PARAM_LANGUAGE_VALUE)
-                    .addQueryParameter(QUERY_PARAM_ORIGINAL_LANGUAGE_LABEL, QUERY_PARAM_ORIGINAL_LANGUAGE_VALUE)
+//                    .addQueryParameter(QUERY_PARAM_ORIGINAL_LANGUAGE_LABEL, QUERY_PARAM_ORIGINAL_LANGUAGE_VALUE)
                     .addQueryParameter(QUERY_PARAM_SORT_BY_LABEL, QUERY_PARAM_SORT_BY_VALUE)
                     .build()
                 val newRequest = chain.request().newBuilder().url(url).build()
@@ -79,7 +79,10 @@ object ApiService {
                 val url = chain.request().url.newBuilder()
                     .addQueryParameter(API_TOKEN_KEY, API_TOKEN)
                     .addQueryParameter(QUERY_PARAM_LANGUAGE_KEY, QUERY_PARAM_LANGUAGE_VALUE)
-                    .addQueryParameter(QUERY_PARAM_ORIGINAL_LANGUAGE_LABEL, QUERY_PARAM_ORIGINAL_LANGUAGE_VALUE)
+                    .addQueryParameter(
+                        QUERY_PARAM_ORIGINAL_LANGUAGE_LABEL,
+                        QUERY_PARAM_ORIGINAL_LANGUAGE_VALUE
+                    )
                     .addQueryParameter(QUERY_PARAM_APPEND_LABEL, QUERY_PARAM_APPEND_VALUE)
                     .build()
                 val newRequest = chain.request().newBuilder().url(url).build()

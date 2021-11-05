@@ -1,17 +1,12 @@
 package com.example.bollymovies.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.bollymovies.R
 import com.example.bollymovies.databinding.ItemStreamingBinding
-import com.example.bollymovies.model.Streaming
-import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
 import com.example.bollymovies.model.Flatrate
 
 class StreamingAdapter(

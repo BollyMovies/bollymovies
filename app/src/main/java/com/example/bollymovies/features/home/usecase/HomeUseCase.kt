@@ -15,7 +15,7 @@ class HomeUseCase(
     suspend fun getMovieById(id: Int) =
         homeRepository.getMovieById(id)
 
-    fun setupNowPlayingMoviesList(list: NowPlaying?): List <Result> {
+    fun setupNowPlayingMoviesList(list: NowPlaying?): List<Result> {
         return list?.results?.map {
             it.backdrop_path = it.backdrop_path?.getFullImageUrl()
             it.poster_path = it.poster_path?.getFullImageUrl()
@@ -24,7 +24,7 @@ class HomeUseCase(
         } ?: listOf()
     }
 
-    fun setupPopularMoviesList(list: Popular?): List <Result> {
+    fun setupPopularMoviesList(list: Popular?): List<Result> {
         return list?.results?.map {
             it.backdrop_path = it.backdrop_path?.getFullImageUrl()
             it.poster_path = it.poster_path?.getFullImageUrl()
@@ -33,7 +33,7 @@ class HomeUseCase(
         } ?: listOf()
     }
 
-    fun setupTopRatedMoviesList(list: TopRated?): List <Result> {
+    fun setupTopRatedMoviesList(list: TopRated?): List<Result> {
         return list?.results?.map {
             it.backdrop_path = it.backdrop_path?.getFullImageUrl()
             it.poster_path = it.poster_path?.getFullImageUrl()

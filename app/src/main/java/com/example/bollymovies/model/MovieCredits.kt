@@ -9,14 +9,19 @@ data class MovieCredits(
     val id: Int
 ) {
     fun getDirectorName(context: Context): String {
-        lateinit var directorName: String
-        val directorLabel: String = context.getString(R.string.director)
-        crew?.forEach {
-            if (it.job == "Director"){
-                directorName = it.name
+        if(!crew.isNullOrEmpty()) {
+            var directorName: String? = null
+            val directorLabel: String = context.getString(R.string.director)
+            crew.forEach {
+                if (it.job == "Director") {
+                    directorName = it.name
+                }
+            }
+            if (directorName != null) {
+                return "$directorLabel $directorName"
             }
         }
-        return "$directorLabel $directorName"
+        return ""
     }
 
     fun getCastName(context: Context): String {
