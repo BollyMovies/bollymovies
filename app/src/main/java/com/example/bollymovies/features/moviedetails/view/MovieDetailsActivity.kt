@@ -249,6 +249,11 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        youtubePlayerView.release()
+    }
+
     var command: MutableLiveData<Command> = MutableLiveData()
 
 }
