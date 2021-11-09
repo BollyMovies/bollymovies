@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,7 +29,7 @@ class HomeFragment : BaseFragment() {
         HomeAdapter({ stopShimmer() }, { movie ->
             val intent = Intent(context, MovieDetailsActivity::class.java)
             intent.putExtra(KEY_INTENT_MOVIE_ID, movie?.id ?: -1)
-            startActivity(intent)
+            context?.let{ ContextCompat.startActivity(it, intent, null)}
         }
         )
     }
@@ -37,7 +38,7 @@ class HomeFragment : BaseFragment() {
         HomeAdapter({ stopShimmer() }, { movie ->
             val intent = Intent(context, MovieDetailsActivity::class.java)
             intent.putExtra(KEY_INTENT_MOVIE_ID, movie?.id ?: -1)
-            startActivity(intent)
+            context?.let{ ContextCompat.startActivity(it, intent, null)}
         })
     }
 
@@ -45,7 +46,7 @@ class HomeFragment : BaseFragment() {
         HomeAdapter({ stopShimmer() }, { movie ->
             val intent = Intent(context, MovieDetailsActivity::class.java)
             intent.putExtra(KEY_INTENT_MOVIE_ID, movie?.id ?: -1)
-            startActivity(intent)
+            context?.let{ ContextCompat.startActivity(it, intent, null)}
         })
     }
 

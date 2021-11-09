@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bollymovies.databinding.MainCardItemBinding
 import com.example.bollymovies.model.Result
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.bollymovies.R
 import org.jetbrains.annotations.Contract
 
@@ -53,6 +54,7 @@ class HomeAdapter(
                     Glide
                         .with(itemView.context)
                         .load(movie.poster_path)
+                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                         .placeholder(R.drawable.placeholder)
                         .into(ivMovieImage)
                 }
