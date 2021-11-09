@@ -82,6 +82,48 @@ class MovieDetailsActivity : AppCompatActivity() {
         })
     }
 
+    private fun setUpCbMyList(movieList: MoviesList){
+        binding.cbMyListMovies.setOnClickListener {
+            if (binding.cbMyListMovies.isChecked) {
+                viewModel.saveMyListMovieDb(movieList)
+            } else {
+                viewModel.deleteMyListMovieDb(movieList)
+            }
+        }
+
+        binding.tvMyListLabel.setOnClickListener {
+            if (binding.cbMyListMovies.isChecked) {
+                binding.cbMyListMovies.isChecked = false
+                viewModel.deleteMyListMovieDb(movieList)
+            } else {
+                binding.cbMyListMovies.isChecked = true
+                viewModel.saveMyListMovieDb(movieList)
+            }
+        }
+
+    }
+
+    private fun setUpCbWatched(watched: WatchedMoviesList){
+        binding.tvWatchedMovies.setOnClickListener {
+            if (binding.cbWatchedMovies.isChecked) {
+                binding.cbWatchedMovies.isChecked = false
+                viewModel.deleteWatchedMovieDb(watched)
+            } else {
+                binding.cbWatchedMovies.isChecked = true
+                viewModel.saveWatchedMovieDb(watched)
+            }
+        }
+
+
+        binding.cbWatchedMovies.setOnClickListener {
+            if (binding.cbWatchedMovies.isChecked) {
+                viewModel.saveWatchedMovieDb(watched)
+            } else {
+                viewModel.deleteWatchedMovieDb(watched)
+            }
+        }
+    }
+
     private fun setupObservables() {
 
         viewModel.onSuccessMyListFromDb.observe(this, { list ->
@@ -89,22 +131,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                 if (moviesList.movieId == movieId) {
                     binding.cbMyListMovies.isChecked = true
 
-                    binding.cbMyListMovies.setOnClickListener {
-                        if (binding.cbMyListMovies.isChecked) {
-                            viewModel.saveMyListMovieDb(moviesList)
-                        } else {
-                            viewModel.deleteMyListMovieDb(moviesList)
-                        }
-                    }
-                    binding.tvMyListLabel.setOnClickListener {
-                        if (binding.cbMyListMovies.isChecked) {
-                            binding.cbMyListMovies.isChecked = false
-                            viewModel.deleteMyListMovieDb(moviesList)
-                        } else {
-                            binding.cbMyListMovies.isChecked = true
-                            viewModel.saveMyListMovieDb(moviesList)
-                        }
-                    }
+
                 }
             }
         })
@@ -113,22 +140,6 @@ class MovieDetailsActivity : AppCompatActivity() {
             for (movie in watched) {
                 if (movie.movieId == movieId) {
                     binding.cbWatchedMovies.isChecked = true
-                    binding.tvWatchedMovies.setOnClickListener {
-                        if (binding.cbWatchedMovies.isChecked) {
-                            binding.cbWatchedMovies.isChecked = false
-                            viewModel.deleteWatchedMovieDb(movie)
-                        } else {
-                            binding.cbWatchedMovies.isChecked = true
-                            viewModel.saveWatchedMovieDb(movie)
-                        }
-                    }
-                    binding.cbWatchedMovies.setOnClickListener {
-                        if (binding.cbWatchedMovies.isChecked) {
-                            viewModel.saveWatchedMovieDb(movie)
-                        } else {
-                            viewModel.deleteWatchedMovieDb(movie)
-                        }
-                    }
                 }
             }
         })
@@ -136,6 +147,15 @@ class MovieDetailsActivity : AppCompatActivity() {
         viewModel.onSuccessMovieById.observe(this, {
             setupData(it)
             movieFromId = it
+
+            val id = it.id
+            val poster = it.poster_path
+            val title = it.title
+            val movieFromList = MoviesList(id, title, poster)
+            val watched = WatchedMoviesList(id, title, poster)
+
+            setUpCbMyList(movieFromList)
+            setUpCbWatched(watched)
 
             if (it.videos!!.results.isNotEmpty()){
                 binding.btTrailerFilmsSeries.isVisible = true
@@ -164,7 +184,14 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         viewModel.onSucessMovieByIdeFromDb.observe(this, {
             setupData(it.toMovie())
-            movieFromId = it.toMovie()
+            val id = it.id
+            val poster = it.poster_path
+            val title = it.title
+            val movieFromList = MoviesList(id, title, poster)
+            val watched = WatchedMoviesList(id, title, poster)
+
+            setUpCbMyList(movieFromList)
+            setUpCbWatched(watched)
         })
 
         viewModel.command.observe(this, {
