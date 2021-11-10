@@ -20,37 +20,51 @@ class MyListFragment : Fragment() {
 
     private var binding: FragmentMyListBinding? = null
     private lateinit var viewModel: MyListViewModel
+    private val list = mutableListOf<MoviesList>()
+    private val adapter = MyListAdapter(list)
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        viewModel = ViewModelProvider(this)[MyListViewModel::class.java]
-        viewModel.command = command
-        viewModel.getMyListMoviesDb()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel.onSuccessMyListFromDb.observe(viewLifecycleOwner, {
-            setupRecyclerView(it)})
+        viewModel = ViewModelProvider(this)[MyListViewModel::class.java]
+        viewModel.command = command
         // Inflate the layout for this fragment
         binding = FragmentMyListBinding.inflate(inflater, container, false)
         return binding?.root
 
     }
 
-    private fun setupRecyclerView(list: MutableList<MoviesList>) {
-        val myListAdapter = MyListAdapter(list)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
+        setupObservable()
+    }
+
+
+    private fun setupObservable() {
+        viewModel.onSuccessMyListFromDb.observe(viewLifecycleOwner, {
+            list.clear()
+            list.addAll(it)
+            adapter.notifyDataSetChanged()
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getMyListMoviesDb()
+    }
+
+    private fun setupRecyclerView() {
         val spanCount = 2
         val spacing = 50
         val includeEdge = true
 
         binding?.let {
             with(it) {
-                vgMyList.adapter = myListAdapter
+                vgMyList.setHasFixedSize(true)
+                vgMyList.adapter = adapter
                 vgMyList.layoutManager = GridLayoutManager(context, spanCount)
                 vgMyList.addItemDecoration(
                     GridSpacingItemDecoration(

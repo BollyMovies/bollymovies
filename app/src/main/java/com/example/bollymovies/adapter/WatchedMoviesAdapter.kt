@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.bollymovies.R
 import com.example.bollymovies.database.WatchedMoviesList
 import com.example.bollymovies.databinding.MainCardItemBinding
 import com.example.bollymovies.features.moviedetails.view.MovieDetailsActivity
@@ -46,6 +48,8 @@ class WatchedMoviesAdapter(
                 Glide
                     .with(itemView.context)
                     .load(movie.posterPath)
+                    .placeholder(R.drawable.placeholder)
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .into(ivMovieImage)
                 binding.vgMainCard.setOnClickListener {
                     onClick(binding.vgMainCard, movie)
