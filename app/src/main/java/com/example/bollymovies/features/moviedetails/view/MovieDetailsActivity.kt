@@ -4,13 +4,13 @@ import android.content.Intent
 import android.content.pm.PackageManager.*
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.bollymovies.R
 import com.example.bollymovies.adapter.StreamingAdapter
 import com.example.bollymovies.database.MoviesList
@@ -22,12 +22,10 @@ import com.example.bollymovies.features.moviedetails.viewmodel.MovieDetailsViewM
 import com.example.bollymovies.model.Movie
 import com.example.bollymovies.utils.Command
 import com.example.bollymovies.utils.ConstantsApp.Home.KEY_INTENT_MOVIE_ID
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
-import okhttp3.internal.notify
-import okhttp3.internal.wait
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -39,6 +37,8 @@ class MovieDetailsActivity : AppCompatActivity() {
     private var sharedTitle: String? = null
     private var overview: String? = null
     private var year: String? = null
+    private lateinit var youtubePlayer: YouTubePlayer
+    private lateinit var youtubePlayerView: YouTubePlayerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +53,7 @@ class MovieDetailsActivity : AppCompatActivity() {
             viewModel.getMyListMoviesDb()
             viewModel.getWatchedMoviesDb()
         }
+
         setupObservables()
         binding.ivArrowBack.setOnClickListener {
             finish()
@@ -71,6 +72,56 @@ class MovieDetailsActivity : AppCompatActivity() {
             year = binding.tvYear.text.toString()
             goToShare()
         }
+        youtubePlayerView = binding.youtubePlayerDetail
+        youtubePlayerView.initialize(object :
+            AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+               youtubePlayer = youTubePlayer
+                binding.btTrailerFilmsSeries.isEnabled = true
+            }
+        })
+    }
+
+    private fun setUpCbMyList(movieList: MoviesList){
+        binding.cbMyListMovies.setOnClickListener {
+            if (binding.cbMyListMovies.isChecked) {
+                viewModel.saveMyListMovieDb(movieList)
+            } else {
+                viewModel.deleteMyListMovieDb(movieList)
+            }
+        }
+
+        binding.tvMyListLabel.setOnClickListener {
+            if (binding.cbMyListMovies.isChecked) {
+                binding.cbMyListMovies.isChecked = false
+                viewModel.deleteMyListMovieDb(movieList)
+            } else {
+                binding.cbMyListMovies.isChecked = true
+                viewModel.saveMyListMovieDb(movieList)
+            }
+        }
+
+    }
+
+    private fun setUpCbWatched(watched: WatchedMoviesList){
+        binding.tvWatchedMovies.setOnClickListener {
+            if (binding.cbWatchedMovies.isChecked) {
+                binding.cbWatchedMovies.isChecked = false
+                viewModel.deleteWatchedMovieDb(watched)
+            } else {
+                binding.cbWatchedMovies.isChecked = true
+                viewModel.saveWatchedMovieDb(watched)
+            }
+        }
+
+
+        binding.cbWatchedMovies.setOnClickListener {
+            if (binding.cbWatchedMovies.isChecked) {
+                viewModel.saveWatchedMovieDb(watched)
+            } else {
+                viewModel.deleteWatchedMovieDb(watched)
+            }
+        }
     }
 
     private fun setupObservables() {
@@ -79,6 +130,8 @@ class MovieDetailsActivity : AppCompatActivity() {
             for (moviesList in list) {
                 if (moviesList.movieId == movieId) {
                     binding.cbMyListMovies.isChecked = true
+
+
                 }
             }
         })
@@ -101,46 +154,13 @@ class MovieDetailsActivity : AppCompatActivity() {
             val movieFromList = MoviesList(id, title, poster)
             val watched = WatchedMoviesList(id, title, poster)
 
+            setUpCbMyList(movieFromList)
+            setUpCbWatched(watched)
+
             if (it.videos!!.results.isNotEmpty()){
                 binding.btTrailerFilmsSeries.isVisible = true
+                binding.btTrailerFilmsSeries.isEnabled = false
                 }
-
-            binding.cbMyListMovies.setOnClickListener {
-                if (binding.cbMyListMovies.isChecked) {
-                    viewModel.saveMyListMovieDb(movieFromList)
-                } else {
-                    viewModel.deleteMyListMovieDb(movieFromList)
-                }
-            }
-
-            binding.tvMyListLabel.setOnClickListener {
-                if (binding.cbMyListMovies.isChecked) {
-                    binding.cbMyListMovies.isChecked = false
-                    viewModel.deleteMyListMovieDb(movieFromList)
-                } else {
-                    binding.cbMyListMovies.isChecked = true
-                    viewModel.saveMyListMovieDb(movieFromList)
-                }
-            }
-
-            binding.tvWatchedMovies.setOnClickListener {
-                if (binding.cbWatchedMovies.isChecked) {
-                    binding.cbWatchedMovies.isChecked = false
-                    viewModel.deleteWatchedMovieDb(watched)
-                } else {
-                    binding.cbWatchedMovies.isChecked = true
-                    viewModel.saveWatchedMovieDb(watched)
-                }
-            }
-
-
-            binding.cbWatchedMovies.setOnClickListener {
-                if (binding.cbWatchedMovies.isChecked) {
-                    viewModel.saveWatchedMovieDb(watched)
-                } else {
-                    viewModel.deleteWatchedMovieDb(watched)
-                }
-            }
 
             binding.btTrailerFilmsSeries.setOnClickListener {
                 setupVideo(movieFromId)
@@ -164,6 +184,14 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         viewModel.onSucessMovieByIdeFromDb.observe(this, {
             setupData(it.toMovie())
+            val id = it.id
+            val poster = it.poster_path
+            val title = it.title
+            val movieFromList = MoviesList(id, title, poster)
+            val watched = WatchedMoviesList(id, title, poster)
+
+            setUpCbMyList(movieFromList)
+            setUpCbWatched(watched)
         })
 
         viewModel.command.observe(this, {
@@ -194,10 +222,16 @@ class MovieDetailsActivity : AppCompatActivity() {
                 Glide
                     .with(activityNonNull)
                     .load(movie.poster_path)
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                    .placeholder(R.drawable.placeholder)
                     .into(ivMovieDetailsImage)
 
                 tvMovieName.text = movie.title
-                tvDescriptionText.text = movie.overview
+                if (!movie.overview.isNullOrEmpty()) {
+                    tvDescriptionText.text = movie.overview
+                } else {
+                    tvDescriptionText.text = "Sinopse não encontrada"
+                }
                 tvYear.text = movie.release_date.toString().getFirst4Chars()
                 tvTime.text = textIsNotNull(movie.runtime.toString())
                 movie.vote_average?.let {
@@ -212,33 +246,33 @@ class MovieDetailsActivity : AppCompatActivity() {
     }
 
     private fun setupVideo(movie: Movie) {
-            val youtubePlayerView = binding.youtubePlayerDetail
             lifecycle.addObserver(youtubePlayerView)
-            val youtube = movie.videos!!.results.last()
+            val trailer = movie.videos!!.results.last()
             binding.apply {
                 btTrailerFilmsSeries.isVisible = false
                 clYoutube.isVisible = true
-                youtubePlayerView.initialize(object :
-                    AbstractYouTubePlayerListener() {
-                    override fun onReady(youTubePlayer: YouTubePlayer) {
-                        youtube.key.let { key -> youTubePlayer.loadOrCueVideo(lifecycle, key, 0f) }
+                        trailer.key.let { key -> youtubePlayer.loadOrCueVideo(lifecycle, key, 0f) }
                         btnClose.setOnClickListener{
                             clYoutube.isVisible = false
-                            youTubePlayer.pause()
+                            btTrailerFilmsSeries.isVisible = true
+                            youtubePlayer.pause()
                         }
-                    }
-                })
                 youtubePlayerView.isFullScreen()
             }
     }
 
 
     private fun textIsNotNull(text: String): String {
-        if (text != "null") {
+        if (text != "null" && text != "0") {
             return "$text min."
         } else {
             return " "
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        youtubePlayerView.release()
     }
 
     var command: MutableLiveData<Command> = MutableLiveData()

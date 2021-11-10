@@ -23,32 +23,47 @@ class WatchedMoviesFragment : Fragment() {
     private var binding: FragmentWatchedMoviesBinding? = null
     private lateinit var viewModel: WatchedMoviesViewModel
     var command: MutableLiveData<Command> = MutableLiveData()
+    private val list = mutableListOf<WatchedMoviesList>()
+    private val adapter = WatchedMoviesAdapter(list)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         viewModel = ViewModelProvider(this)[WatchedMoviesViewModel::class.java]
         viewModel.command = command
+        // Inflate the layout for this fragment
+        binding = FragmentWatchedMoviesBinding.inflate(inflater, container, false)
+        return binding?.root
+    }
+
+    override fun onResume() {
+        super.onResume()
         viewModel.getWatchedMoviesDb()
+    }
 
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
+        setupObservable()
     }
 
     fun setupObservable() {
         viewModel.onSuccessWatchedMoviesFromDb.observe(viewLifecycleOwner, {
-            setupRecyclerView(it)
+            list.clear()
+            list.addAll(it)
+            adapter.notifyDataSetChanged()
         })
     }
 
-    private fun setupRecyclerView(lista: List<WatchedMoviesList>) {
-        val watchedMoviesAdapter = WatchedMoviesAdapter(lista)
+    private fun setupRecyclerView() {
         val spanCount = 2
         val spacing = 50
         val includeEdge = true
 
         binding?.let {
             with(it) {
-                vgWatchedMovies.adapter = watchedMoviesAdapter
+                vgWatchedMovies.adapter = adapter
                 vgWatchedMovies.layoutManager = GridLayoutManager(context, spanCount)
                 vgWatchedMovies.addItemDecoration(
                     GridSpacingItemDecoration(
@@ -62,20 +77,6 @@ class WatchedMoviesFragment : Fragment() {
             }
         }
 
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentWatchedMoviesBinding.inflate(inflater, container, false)
-        return binding?.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupObservable()
     }
 
     override fun onDestroy() {
